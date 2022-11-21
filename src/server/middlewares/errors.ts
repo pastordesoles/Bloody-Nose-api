@@ -1,4 +1,4 @@
-import "../../../loadEnvironments.js";
+import "../../loadEnvironment.js";
 import debugCreator from "debug";
 import chalk from "chalk";
 import type { NextFunction, Request, Response } from "express";
