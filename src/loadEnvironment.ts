@@ -5,9 +5,10 @@ dotenv.config();
 interface Environment {
   port: number;
   debug: string;
+  uri: string;
 }
 
-const { PORT: port, DEBUG: debug } = process.env;
+const { PORT: port, DEBUG: debug, MONGODB_URL: uri } = process.env;
 
 // eslint-disable-next-line no-implicit-coercion
-export const environment: Environment = { port: +port, debug };
+export const environment: Environment = { port: +port, debug, uri };
