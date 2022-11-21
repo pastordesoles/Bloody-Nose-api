@@ -11,6 +11,7 @@
     "start:dev": "node --watch .",
     "test": "jest --passWithNoTests",
     "test:dev": "jest --watchAll",
+    "test:coverage": "jest --coverage --watchAll=false",
     "prepare": "husky install"
   },
   "keywords": [],
