@@ -1,0 +1,22 @@
+name: Testing
+
+on: push
+
+jobs:
+  test:
+    name: Tests passes
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v3
+
+      - name: Install modules
+        run: npm ci
+
+      - name: Testing
+        run: npm test
+env:
+  DEBUG: ${{ secrets.DEBUG }}
+  MONGODB_URL: ${{ secrets.MONGODB_URL }}
+  JWT_SECRET: ${{secrets.JWT_SECRET}}
