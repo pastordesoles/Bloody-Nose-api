@@ -1,5 +1,5 @@
 import type { Response } from "express";
-import CustomError from "../../CustomError/CustomError";
+import CustomError from "../../../CustomError/CustomError";
 
 import { generalError, notFoundError } from "./errors.js";
 

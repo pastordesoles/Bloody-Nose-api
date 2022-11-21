@@ -1,8 +1,8 @@
-import "../../loadEnvironment.js";
+import "../../../loadEnvironment.js";
 import debugCreator from "debug";
 import chalk from "chalk";
 import type { NextFunction, Request, Response } from "express";
-import CustomError from "../../CustomError/CustomError.js";
+import CustomError from "../../../CustomError/CustomError.js";
 
 const debug = debugCreator("bloody-nose:server:middlewares:errors");
 
