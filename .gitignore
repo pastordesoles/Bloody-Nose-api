@@ -4,3 +4,4 @@ build/
 .env
 coverage/
 assets/
+.vscode
