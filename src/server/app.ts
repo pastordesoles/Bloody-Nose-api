@@ -10,4 +10,8 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.disable("x-powered-by");
 
+app.use((req, res) => {
+  res.status(200).json({ message: "Build in progress" });
+});
+
 export default app;
