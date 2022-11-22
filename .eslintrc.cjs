@@ -19,7 +19,7 @@ module.exports = {
       },
     },
     {
-      files: ["src/database/models/*.ts"],
+      files: ["src/database/models/*.ts", "src/server/routers/**/*.ts"],
       rules: { "@typescript-eslint/naming-convention": "off" },
     },
   ],
