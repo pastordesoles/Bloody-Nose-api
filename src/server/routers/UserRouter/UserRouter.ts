@@ -1,3 +1,4 @@
+/* eslint-disable new-cap */
 import express from "express";
 import multer from "multer";
 import path from "path";
@@ -12,7 +13,6 @@ const upload = multer({
   dest: path.join("assets", "images"),
 });
 
-// eslint-disable-next-line new-cap
 const userRouter = express.Router();
 
 userRouter.post(
