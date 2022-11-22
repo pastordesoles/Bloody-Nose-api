@@ -1,6 +1,5 @@
 import type { NextFunction, Request, Response } from "express";
 import bcrypt from "bcrypt";
-import CustomError from "../../../CustomError/CustomError.js";
 import User from "../../../database/models/User.js";
 import type { RegisterData } from "./types";
 
@@ -22,11 +21,6 @@ export const registerUser = async (
 
     res.status(201).json({ user: { id: newUser._id, username, email } });
   } catch (error: unknown) {
-    const customError = new CustomError(
-      (error as Error).message,
-      "Error creating a new user",
-      500
-    );
-    next(customError);
+    next(error);
   }
 };
