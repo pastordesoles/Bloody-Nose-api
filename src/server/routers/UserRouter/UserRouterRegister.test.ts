@@ -39,7 +39,7 @@ describe("Given a POST /users/register endpoint", () => {
   });
 
   describe("When it receives a request with username 'xavi' and password '12345' and email 'xav@i.com' that is already registered", () => {
-    test("Then it should respond with a 500 and a 'Error creating a new user", async () => {
+    test("Then it should respond with a 500 and a 'Core meltdown", async () => {
       const expectedMessage = "Core meltdown";
 
       await User.create(registerdata);
@@ -48,6 +48,19 @@ describe("Given a POST /users/register endpoint", () => {
         .post("/users/register")
         .send(registerdata)
         .expect(500);
+
+      expect(response.body).toHaveProperty("error", expectedMessage);
+    });
+  });
+
+  describe("When it receives an empty request", () => {
+    test("Then it should call its status method with code 400 and a 'Core meltdown'", async () => {
+      const expectedStatus = 400;
+      const expectedMessage = "Core meltdown";
+
+      const response = await request(app)
+        .post("/users/register")
+        .expect(expectedStatus);
 
       expect(response.body).toHaveProperty("error", expectedMessage);
     });
