@@ -4,6 +4,9 @@ import morgan from "morgan";
 import corsOptions from "./cors/corsOptions.js";
 import { generalError, notFoundError } from "./middlewares/errors/errors.js";
 import userRouter from "./routers/UserRouter/UserRouter.js";
+import routes from "./routers/routes.js";
+
+const { usersEndpoint } = routes;
 
 const app = express();
 
@@ -12,7 +15,7 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.disable("x-powered-by");
 
-app.use("/users", userRouter);
+app.use(usersEndpoint, userRouter);
 
 app.use(notFoundError);
 app.use(generalError);

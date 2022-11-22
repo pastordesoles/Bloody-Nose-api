@@ -1,4 +1,5 @@
 const routes = {
+  usersEndpoint: "/users",
   register: "/register",
 };
 

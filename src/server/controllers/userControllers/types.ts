@@ -5,6 +5,4 @@ export interface Credentials {
 
 export interface RegisterData extends Credentials {
   email: string;
-  job: string;
-  biography: string;
 }
