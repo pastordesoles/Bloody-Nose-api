@@ -2,7 +2,10 @@ import "../../../loadEnvironment.js";
 import debugCreator from "debug";
 import chalk from "chalk";
 import type { NextFunction, Request, Response } from "express";
-import CustomError from "../../../CustomError/CustomError.js";
+import type CustomError from "../../../CustomError/CustomError.js";
+import errorsMessageSet from "../../../CustomError/errorsMessageSet.js";
+
+const { notFoundError: notFoundErrorMessage } = errorsMessageSet;
 
 const debug = debugCreator("bloody-nose:server:middlewares:errors");
 
@@ -11,11 +14,7 @@ export const notFoundError = (
   res: Response,
   next: NextFunction
 ) => {
-  const error = new CustomError(
-    "Endpoint not found",
-    "Endpoint not found",
-    404
-  );
+  const error = notFoundErrorMessage;
   next(error);
 };
 
