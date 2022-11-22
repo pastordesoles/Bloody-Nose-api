@@ -40,7 +40,7 @@ describe("Given a POST /users/register endpoint", () => {
 
   describe("When it receives a request with username 'xavi' and password '12345' and email 'xav@i.com' that is already registered", () => {
     test("Then it should respond with a 500 and a 'Error creating a new user", async () => {
-      const expectedMessage = "Error creating a new user";
+      const expectedMessage = "Core meltdown";
 
       await User.create(registerdata);
 
