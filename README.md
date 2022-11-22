@@ -1,7 +1,7 @@
-# Project Name
+# Bloody Nose API
 
 > API for the Bloody Nose app.
-> Live demo [_here_](https://xavier-sans-back-final-project-202209-bcn.onrender.com/). <!-- If you have the project hosted somewhere, include the link here. -->
+> Live demo [_here_](https://xavier-sans-back-final-project-202209-bcn.onrender.com/).
 
 ## Table of Contents
 
@@ -13,11 +13,10 @@
 - [Room for Improvement](#room-for-improvement)
 - [Acknowledgements](#acknowledgements)
 - [Contact](#contact)
-<!-- * [License](#license) -->
 
 ## General Information
 
-API rest that manages all user and sessions information for the Bloody Nose application,
+API rest that manages all user and sessions information for the Bloody Nose application.
 
 ## Technologies Used
 
@@ -54,5 +53,3 @@ To do:
 ## Contact
 
 Created by [Xavi](https://www.linkedin.com/in/xaviersansb/) - feel free to contact me!
-
-<!-- You don't have to include all sections - just the one's relevant to your project -->
