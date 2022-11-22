@@ -4,6 +4,10 @@ import mongoose from "mongoose";
 import connectDb from "../../../database/connectDb";
 import app from "../../app";
 import User from "../../../database/models/User";
+import routes from "../routes";
+
+const { register, usersEndpoint } = routes;
+const registerEndpoint = `${usersEndpoint}${register}`;
 
 let server: MongoMemoryServer;
 
@@ -27,10 +31,11 @@ describe("Given a POST /users/register endpoint", () => {
     password: "12345",
     email: "xav@i.com",
   };
+
   describe("When it receives a request with username 'xavi' and password '12345' and email 'xav@i,com'", () => {
     test("Then it should respond with a 201 and the new user 'xavi'", async () => {
       const response = await request(app)
-        .post("/users/register")
+        .post(registerEndpoint)
         .send(registerdata)
         .expect(201);
 
@@ -45,7 +50,7 @@ describe("Given a POST /users/register endpoint", () => {
       await User.create(registerdata);
 
       const response = await request(app)
-        .post("/users/register")
+        .post(registerEndpoint)
         .send(registerdata)
         .expect(500);
 
@@ -59,7 +64,7 @@ describe("Given a POST /users/register endpoint", () => {
       const expectedMessage = "Core meltdown";
 
       const response = await request(app)
-        .post("/users/register")
+        .post(registerEndpoint)
         .expect(expectedStatus);
 
       expect(response.body).toHaveProperty("error", expectedMessage);

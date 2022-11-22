@@ -8,13 +8,6 @@ const userFactory = Factory.define<RegisterData>(() => ({
   email: faker.internet.email(),
 }));
 
-export const predefinedUser = (name: string, password: string, email: string) =>
-  Factory.define<RegisterData>(() => ({
-    username: name ?? faker.internet.userName(),
-    password: password ?? faker.internet.password(),
-    email: email ?? faker.internet.email(),
-  }));
-
 export const getRandomUser = () => userFactory.build();
 
 export const getRandomUserList = (number: number) =>
