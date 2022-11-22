@@ -5,6 +5,8 @@ import connectDb from "../../../database/connectDb";
 import app from "../../app";
 import User from "../../../database/models/User";
 import routes from "../routes";
+import { getPredefinedUser } from "../../../factories/usersFactory";
+import type { RegisterData } from "../../controllers/userControllers/types";
 
 const { register, usersEndpoint } = routes;
 const registerEndpoint = `${usersEndpoint}${register}`;
@@ -26,17 +28,19 @@ beforeEach(async () => {
 });
 
 describe("Given a POST /users/register endpoint", () => {
-  const registerdata = {
+  const registerdata: RegisterData = {
     username: "xavi",
     password: "12345",
     email: "xav@i.com",
   };
 
+  const user = getPredefinedUser(registerdata)();
+
   describe("When it receives a request with username 'xavi' and password '12345' and email 'xav@i,com'", () => {
     test("Then it should respond with a 201 and the new user 'xavi'", async () => {
       const response = await request(app)
         .post(registerEndpoint)
-        .send(registerdata)
+        .send(user)
         .expect(201);
 
       expect(response.body).toHaveProperty("user");
@@ -51,7 +55,7 @@ describe("Given a POST /users/register endpoint", () => {
 
       const response = await request(app)
         .post(registerEndpoint)
-        .send(registerdata)
+        .send(user)
         .expect(500);
 
       expect(response.body).toHaveProperty("error", expectedMessage);
