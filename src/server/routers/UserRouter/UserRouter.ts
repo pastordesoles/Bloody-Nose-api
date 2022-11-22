@@ -19,7 +19,6 @@ userRouter.post(
   register,
   upload.single("picture"),
   validate(userSchema, {}, { abortEarly: false }),
-
   registerUser
 );
 
