@@ -27,6 +27,28 @@
         }
       },
       "response": []
+    },
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"username\": \"xavi\",\r\n    \"password\": \"12345678\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{LocalOrigin}}/users/login",
+          "host": ["{{LocalOrigin}}"],
+          "path": ["users", "login"]
+        }
+      },
+      "response": []
     }
   ],
   "event": [
