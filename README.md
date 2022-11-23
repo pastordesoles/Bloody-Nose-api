@@ -49,6 +49,7 @@ The command _npm run start:dev_ starts the server in watch mode.
 ## Endpoints
 
 - (POST) /users/register -> Must create a new user with an encrypted password. Body -> Its body must have an user object with the following properties: id, username and email.
+- (POST) /users/login -> Log the user into the application. Body -> Its body must return an object with a valid token.
 
 ## Project Status
 

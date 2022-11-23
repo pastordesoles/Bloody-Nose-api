@@ -1,60 +1,96 @@
 {
-  "info": {
-    "_postman_id": "2450e034-3555-4709-8d5b-1fe9011e79ad",
-    "name": "Bloody Nose",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "23871435"
-  },
-  "item": [
-    {
-      "name": "Register",
-      "request": {
-        "method": "POST",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\r\n    \"username\": \"xavi\",\r\n    \"password\": \"12345678\",\r\n    \"email\": \"a@xav.com\"\r\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "{{LocalOrigin}}/users/register",
-          "host": ["{{LocalOrigin}}"],
-          "path": ["users", "register"]
-        }
-      },
-      "response": []
-    }
-  ],
-  "event": [
-    {
-      "listen": "prerequest",
-      "script": {
-        "type": "text/javascript",
-        "exec": [""]
-      }
-    },
-    {
-      "listen": "test",
-      "script": {
-        "type": "text/javascript",
-        "exec": [""]
-      }
-    }
-  ],
-  "variable": [
-    {
-      "key": "LocalOrigin",
-      "value": "http://localhost:4000",
-      "type": "string"
-    },
-    {
-      "key": "productionOrigin",
-      "value": "https://xavier-sans-back-final-project-202209-bcn.onrender.com/",
-      "type": "string"
-    }
-  ]
+	"info": {
+		"_postman_id": "2450e034-3555-4709-8d5b-1fe9011e79ad",
+		"name": "Bloody Nose",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23871435"
+	},
+	"item": [
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"xavi\",\r\n    \"password\": \"12345678\",\r\n    \"email\": \"a@xav.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{LocalOrigin}}/users/register",
+					"host": [
+						"{{LocalOrigin}}"
+					],
+					"path": [
+						"users",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"xavi\",\r\n    \"password\": \"12345678\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{LocalOrigin}}/users/login",
+					"host": [
+						"{{LocalOrigin}}"
+					],
+					"path": [
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "LocalOrigin",
+			"value": "http://localhost:4000",
+			"type": "string"
+		},
+		{
+			"key": "productionOrigin",
+			"value": "https://xavier-sans-back-final-project-202209-bcn.onrender.com/",
+			"type": "string"
+		}
+	]
 }
