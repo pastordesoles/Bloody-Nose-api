@@ -6,6 +6,18 @@ const errorsMessageSet = {
     "Endpoint not found",
     404
   ),
+
+  wrongCredentialsUsername: new CustomError(
+    "Username not found",
+    "Wrong credentials",
+    401
+  ),
+
+  wrongCredentialsPassword: new CustomError(
+    "Password is incorrect",
+    "Wrong credentials",
+    401
+  ),
 };
 
 export default errorsMessageSet;
