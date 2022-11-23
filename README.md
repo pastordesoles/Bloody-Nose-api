@@ -22,6 +22,20 @@ API rest that manages all user and sessions information for the Bloody Nose appl
 
 - Node
 - Express
+- Typescript
+- Bcrypt
+- Chalk
+- Cors
+- Debug
+- Dotenv
+- Express-validation
+- Fishery
+- Joi
+- JSONwebtoken
+- Mongoose
+- Morgan
+- Multer
+- Nodemon
 
 ## Setup
 
@@ -34,7 +48,7 @@ The command _npm run start:dev_ starts the server in watch mode.
 
 ## Endpoints
 
-- (POST) /users/register -> Must create a new user with an encrypted password. Body -> Its body must return an user object with the following properties: id, username and email.
+- (POST) /users/register -> Must create a new user with an encrypted password. Body -> Its body must have an user object with the following properties: id, username and email.
 
 ## Project Status
 

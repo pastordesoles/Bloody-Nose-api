@@ -3,11 +3,14 @@ import express from "express";
 import multer from "multer";
 import path from "path";
 import { validate } from "express-validation";
-import { registerUser } from "../../controllers/userControllers/userControllers.js";
+import {
+  registerUser,
+  loginUser,
+} from "../../controllers/userControllers/userControllers.js";
 import routes from "../routes.js";
 import userSchema from "../../../schemas/userSchema.js";
 
-const { register } = routes;
+const { register, login } = routes;
 
 const upload = multer({
   dest: path.join("assets", "images"),
@@ -21,5 +24,7 @@ userRouter.post(
   validate(userSchema, {}, { abortEarly: false }),
   registerUser
 );
+
+userRouter.post(login, loginUser);
 
 export default userRouter;

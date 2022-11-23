@@ -17,7 +17,11 @@ jobs:
         run: npm ci
       - name: Coverage
         run: npm run test:coverage
-
+        env:
+          MONGODB_URL: ${{ secrets.MONGODB_URL }}
+          JWT_SECRET: ${{secrets.JWT_SECRET}}
+          SUPABASE_URL: ${{secrets.SUPABASE_URL}}
+          SUPABASE_KEY: ${{secrets.SUPABASE_KEY}}
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:

@@ -10,9 +10,9 @@ const userFactory = Factory.define<RegisterData>(() => ({
 
 const predefinedUser = (user?: RegisterData) =>
   Factory.define<RegisterData>(() => ({
-    username: user.username ?? faker.internet.userName(),
-    password: user.password ?? faker.internet.password(),
-    email: user.email ?? faker.internet.email(),
+    username: user?.username ?? faker.internet.userName(),
+    password: user?.password ?? faker.internet.password(),
+    email: user?.email ?? faker.internet.email(),
   }));
 
 export const getPredefinedUser = (user?: RegisterData) => () =>
