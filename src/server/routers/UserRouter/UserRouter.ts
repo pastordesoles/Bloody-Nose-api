@@ -14,6 +14,7 @@ const { register, login } = routes;
 
 const upload = multer({
   dest: path.join("assets", "images"),
+  limits: { fileSize: 1048576 },
 });
 
 const userRouter = express.Router();

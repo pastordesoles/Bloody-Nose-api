@@ -70,7 +70,9 @@ describe("Given a login controller", () => {
   describe("When When it receives a  correct username 'xavi' and a correct password '12345'", () => {
     test("Then it should invoke the response method with a 200 status and its json method with a valid token", async () => {
       const expectedStatus = 200;
-      User.findOne = jest.fn().mockResolvedValueOnce(loginBody);
+      User.findOne = jest.fn().mockReturnValueOnce({
+        exec: jest.fn().mockReturnValue(loginBody),
+      });
       bcrypt.compare = jest.fn().mockResolvedValueOnce(true);
 
       await loginUser(req as Request, res as Response, next as NextFunction);
@@ -82,7 +84,9 @@ describe("Given a login controller", () => {
 
   describe("When it receives a request with an invalid username", () => {
     test("Then it should invoke the next function with a username error", async () => {
-      User.findOne = jest.fn().mockResolvedValueOnce(null);
+      User.findOne = jest.fn().mockReturnValueOnce({
+        exec: jest.fn().mockReturnValue(null),
+      });
       const usernameError = wrongCredentialsUsername;
 
       await loginUser(req as Request, res as Response, next as NextFunction);
@@ -93,7 +97,10 @@ describe("Given a login controller", () => {
 
   describe("When it receives a valid username 'xavi' and the wrong password", () => {
     test("Then it should invoke the next function with a password error", async () => {
-      User.findOne = jest.fn().mockResolvedValueOnce(loginBody);
+      User.findOne = jest.fn().mockReturnValueOnce({
+        exec: jest.fn().mockReturnValue(loginBody),
+      });
+
       const passwordError = wrongCredentialsPassword;
 
       bcrypt.compare = jest.fn().mockResolvedValueOnce(false);

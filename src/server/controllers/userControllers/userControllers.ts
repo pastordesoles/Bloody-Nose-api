@@ -38,7 +38,7 @@ export const loginUser = async (
 ) => {
   const { username, password } = req.body as Credentials;
 
-  const user = await User.findOne({ username });
+  const user = await User.findOne({ username }).exec();
 
   if (!user) {
     next(wrongCredentialsUsername);
