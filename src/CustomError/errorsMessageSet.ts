@@ -18,6 +18,15 @@ const errorsMessageSet = {
     "Wrong credentials",
     401
   ),
+
+  noAvailableSessions: new CustomError(
+    "No sessions registered",
+    "No available sessions yet",
+    404
+  ),
+
+  cantRetrieveSessions: "Can't retrieve available sessions",
+  code404: 404,
 };
 
 export default errorsMessageSet;

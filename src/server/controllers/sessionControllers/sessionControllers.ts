@@ -2,6 +2,9 @@ import type { NextFunction, Response } from "express";
 import CustomError from "../../../CustomError/CustomError.js";
 import Session from "../../../database/models/Session.js";
 import type { CustomRequest } from "./types";
+import errorsMessageSet from "../../../CustomError/errorsMessageSet.js";
+
+const { noAvailableSessions, cantRetrieveSessions, code404 } = errorsMessageSet;
 
 export const getAllSessions = async (
   req: CustomRequest,
@@ -30,19 +33,14 @@ export const getAllSessions = async (
       .limit(pageOptions.limit);
 
     if (sessions.length === 0) {
-      const error = new CustomError(
-        "No sessions registered",
-        "No available sessions yet",
-        404
-      );
-      next(error);
+      next(noAvailableSessions);
       return;
     }
   } catch (error: unknown) {
     const mongooseError = new CustomError(
       (error as Error).message,
-      "Can't retrieve available sessions",
-      404
+      cantRetrieveSessions,
+      code404
     );
     next(mongooseError);
     return;

@@ -25,7 +25,7 @@ const sessionsList = getRandomSessionsList(1);
 
 describe("Given a getAllSessions controller", () => {
   describe("When it receives a custom request with id '1234'", () => {
-    test("Then it should invoke response's method status with 200", async () => {
+    test("Then it should invoke response's method status with 200 and a list of sessions", async () => {
       const expectedStatus = 200;
 
       Session.countDocuments = jest.fn().mockResolvedValue(10);
@@ -51,6 +51,44 @@ describe("Given a getAllSessions controller", () => {
           totalPages: 1,
         },
       });
+    });
+  });
+
+  describe("When it receives a custom request with id '1234' and there is an error getting the list", () => {
+    test("Then it should call its method next with a sessions error", async () => {
+      Session.find = jest.fn().mockReturnValue({
+        skip: jest.fn().mockReturnValue({
+          limit: jest.fn().mockReturnValue(null),
+        }),
+      });
+
+      await getAllSessions(
+        req as CustomRequest,
+        res as Response,
+        next as NextFunction
+      );
+
+      expect(next).toHaveBeenCalled();
+    });
+  });
+
+  describe("When it receives a custom request with id '1234' and there are no available sessions", () => {
+    test("Then it should call its method next with a sessions error", async () => {
+      Session.countDocuments = jest.fn().mockResolvedValue(0);
+
+      Session.find = jest.fn().mockReturnValue({
+        skip: jest.fn().mockReturnValue({
+          limit: jest.fn().mockReturnValue([]),
+        }),
+      });
+
+      await getAllSessions(
+        req as CustomRequest,
+        res as Response,
+        next as NextFunction
+      );
+
+      expect(next).toHaveBeenCalled();
     });
   });
 });
