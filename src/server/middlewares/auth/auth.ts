@@ -9,7 +9,7 @@ const { jwt: jwtSecret } = environment;
 
 const auth = (req: CustomRequest, res: Response, next: NextFunction) => {
   try {
-    const authorizationHeader = req.header("Authorization");
+    const authorizationHeader: string = req.header("Authorization");
 
     if (!authorizationHeader) {
       const error = new CustomError(
@@ -32,7 +32,7 @@ const auth = (req: CustomRequest, res: Response, next: NextFunction) => {
       next(error);
     }
 
-    const token = authorizationHeader.replace(/^Bearer\s*/, "");
+    const token: string = authorizationHeader.replace(/^Bearer\s*/, "");
 
     const user = jwt.verify(token, jwtSecret) as UserTokenPayload;
 
