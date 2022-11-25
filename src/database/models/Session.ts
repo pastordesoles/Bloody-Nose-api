@@ -44,6 +44,10 @@ const sessionSchema = new Schema({
     type: String,
     required: true,
   },
+  owner: {
+    type: Schema.Types.ObjectId,
+    required: true,
+  },
 });
 
 export type SessionStructure = InferSchemaType<typeof sessionSchema>;

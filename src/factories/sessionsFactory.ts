@@ -1,6 +1,7 @@
 import { Factory } from "fishery";
 import { faker } from "@faker-js/faker";
 import type { SessionStructure } from "../database/models/Session";
+import mongoose from "mongoose";
 
 const sessionsFactory = Factory.define<SessionStructure>(() => ({
   content: faker.lorem.paragraph(1),
@@ -16,6 +17,7 @@ const sessionsFactory = Factory.define<SessionStructure>(() => ({
   title: faker.random.word(),
   picture: faker.image.avatar(),
   supabasePicture: faker.image.avatar(),
+  owner: new mongoose.Types.ObjectId(),
 }));
 
 export const getRandomSession = () => sessionsFactory.build();
