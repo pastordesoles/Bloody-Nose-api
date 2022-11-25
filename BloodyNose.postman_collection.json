@@ -35,7 +35,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"username\": \"xavi\",\r\n    \"password\": \"12345678\"\r\n}",
+          "raw": "{\r\n    \"username\": \"xavi\",\r\n    \"password\": \"12345\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -49,8 +49,37 @@
         }
       },
       "response": []
+    },
+    {
+      "name": "Get sessions",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{LocalOrigin}}/sessions/list?page=0",
+          "host": ["{{LocalOrigin}}"],
+          "path": ["sessions", "list"],
+          "query": [
+            {
+              "key": "page",
+              "value": "0"
+            }
+          ]
+        }
+      },
+      "response": []
     }
   ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzN2YzNzMwZDE5Y2U3YTliMDdhODc3ZSIsInVzZXJuYW1lIjoieGF2aSIsImlhdCI6MTY2OTMyNjI2MiwiZXhwIjoxNjY5NDk5MDYyfQ.AwKvsW2TgLUZl_Pc6Iu0jt48XABZiRbQTAi-rxZNlvQ",
+        "type": "string"
+      }
+    ]
+  },
   "event": [
     {
       "listen": "prerequest",

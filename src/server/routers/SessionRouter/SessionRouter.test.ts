@@ -83,4 +83,17 @@ describe("Given a GET /sessions/list endpoint", () => {
       expect(response.body).toHaveProperty("error");
     });
   });
+
+  describe("When it receives a request with valid token from a non-allowed origin", () => {
+    test("Then it should respond with an error and status 500", async () => {
+      const expectedStatus = 500;
+
+      const response = await request(app)
+        .get(sessionEndpoint)
+        .set("Origin", "http://allowed.com")
+        .expect(expectedStatus);
+
+      expect(response.body).toHaveProperty("error");
+    });
+  });
 });
