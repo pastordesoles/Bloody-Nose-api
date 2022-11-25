@@ -19,7 +19,7 @@ export const getAllSessions = async (
     limit: 10,
   };
 
-  const countSessions: number = await Session.countDocuments();
+  const countSessions: number = await Session.countDocuments().exec();
 
   const checkPages = {
     isPreviousPage: pageOptions.page !== 0,
@@ -30,7 +30,8 @@ export const getAllSessions = async (
   try {
     sessions = await Session.find()
       .skip(pageOptions.page * pageOptions.limit)
-      .limit(pageOptions.limit);
+      .limit(pageOptions.limit)
+      .exec();
 
     if (sessions.length === 0) {
       next(noAvailableSessions);
