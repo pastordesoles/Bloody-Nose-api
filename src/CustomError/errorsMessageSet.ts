@@ -25,8 +25,22 @@ const errorsMessageSet = {
     404
   ),
 
+  authorizationMissing: new CustomError(
+    "Authorization header missing",
+    "Missing token",
+    401
+  ),
+
+  missingBearer: new CustomError(
+    "Missing bearer in Authorization header",
+    "Missing token",
+    401
+  ),
+
   cantRetrieveSessions: "Can't retrieve available sessions",
+  invalidToken: "Invalid token",
   code404: 404,
+  code401: 401,
 };
 
 export default errorsMessageSet;
