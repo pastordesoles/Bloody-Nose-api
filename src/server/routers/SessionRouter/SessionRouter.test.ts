@@ -29,11 +29,13 @@ beforeAll(async () => {
   server = await MongoMemoryServer.create();
   await connectDb(server.getUri());
   await User.create(user);
-  await Session.create(sessionsList);
+});
+
+afterEach(async () => {
+  await Session.deleteMany({});
 });
 
 afterAll(async () => {
-  await Session.deleteMany({});
   await User.deleteMany({});
   await mongoose.disconnect();
   await server.stop();
@@ -44,6 +46,8 @@ describe("Given a GET /sessions/list endpoint", () => {
     test("Then it should respond with a list of 10 sessions and status 200", async () => {
       const expectedStatus = 200;
 
+      await Session.create(sessionsList);
+
       const response = await request(app)
         .get(sessionEndpoint)
         .set("Authorization", `Bearer ${requestUserToken}`)
@@ -51,6 +55,32 @@ describe("Given a GET /sessions/list endpoint", () => {
 
       expect(response.body).toHaveProperty("sessions");
       expect(response.body.sessions.sessions).toHaveLength(10);
+    });
+  });
+
+  describe("When it receives a request with an invalid token and there are 10 sessions in the database", () => {
+    test("Then it should respond with a 401 status and an error", async () => {
+      const expectedStatus = 401;
+
+      const response = await request(app)
+        .get(sessionEndpoint)
+        .set("Authorization", "Bearer ")
+        .expect(expectedStatus);
+
+      expect(response.body).toHaveProperty("error");
+    });
+  });
+
+  describe("When it receives a request with valid token and there are 0 sessions in the database", () => {
+    test("Then it should respond with an error and status 404", async () => {
+      const expectedStatus = 404;
+
+      const response = await request(app)
+        .get(sessionEndpoint)
+        .set("Authorization", `Bearer ${requestUserToken}`)
+        .expect(expectedStatus);
+
+      expect(response.body).toHaveProperty("error");
     });
   });
 });
