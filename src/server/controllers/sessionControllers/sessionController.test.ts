@@ -87,7 +87,7 @@ describe("Given a getAllSessions controller", () => {
       Session.find = jest.fn().mockReturnValue({
         skip: jest.fn().mockReturnValue({
           limit: jest.fn().mockReturnValue({
-            exec: jest.fn().mockReturnValue(null),
+            exec: jest.fn().mockReturnValue([]),
           }),
         }),
       });
