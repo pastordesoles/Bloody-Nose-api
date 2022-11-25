@@ -28,11 +28,15 @@ describe("Given a getAllSessions controller", () => {
     test("Then it should invoke response's method status with 200 and a list of sessions", async () => {
       const expectedStatus = 200;
 
-      Session.countDocuments = jest.fn().mockResolvedValue(10);
+      Session.countDocuments = jest.fn().mockReturnValue({
+        exec: jest.fn().mockReturnValue(10),
+      });
 
       Session.find = jest.fn().mockReturnValue({
         skip: jest.fn().mockReturnValue({
-          limit: jest.fn().mockReturnValue(sessionsList),
+          limit: jest.fn().mockReturnValue({
+            exec: jest.fn().mockReturnValue(sessionsList),
+          }),
         }),
       });
 
@@ -58,7 +62,9 @@ describe("Given a getAllSessions controller", () => {
     test("Then it should call its method next with a sessions error", async () => {
       Session.find = jest.fn().mockReturnValue({
         skip: jest.fn().mockReturnValue({
-          limit: jest.fn().mockReturnValue(null),
+          limit: jest.fn().mockReturnValue({
+            exec: jest.fn().mockReturnValue(null),
+          }),
         }),
       });
 
@@ -74,11 +80,15 @@ describe("Given a getAllSessions controller", () => {
 
   describe("When it receives a custom request with id '1234' and there are no available sessions", () => {
     test("Then it should call its method next with a sessions error", async () => {
-      Session.countDocuments = jest.fn().mockResolvedValue(0);
+      Session.countDocuments = jest.fn().mockReturnValue({
+        exec: jest.fn().mockReturnValue(0),
+      });
 
       Session.find = jest.fn().mockReturnValue({
         skip: jest.fn().mockReturnValue({
-          limit: jest.fn().mockReturnValue([]),
+          limit: jest.fn().mockReturnValue({
+            exec: jest.fn().mockReturnValue(null),
+          }),
         }),
       });
 
