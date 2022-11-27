@@ -10,16 +10,6 @@ const userFactory = Factory.define<RegisterData>(() => ({
   _id: new mongoose.Types.ObjectId(),
 }));
 
-const predefinedUser = (user?: RegisterData) =>
-  Factory.define<RegisterData>(() => ({
-    username: user?.username ?? faker.internet.userName(),
-    password: user?.password ?? faker.internet.password(),
-    email: user?.email ?? faker.internet.email(),
-  }));
-
-export const getPredefinedUser = (user?: RegisterData) => () =>
-  predefinedUser(user).build();
-
 export const getRandomUser = () => userFactory.build();
 
 export const getRandomUserList = (number: number) =>
