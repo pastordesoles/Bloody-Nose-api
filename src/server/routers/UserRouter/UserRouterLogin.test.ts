@@ -28,7 +28,7 @@ beforeEach(async () => {
 
 describe("Given a POST /users/login endpoint", () => {
   describe("When it receives a request with username 'xavi' and password '12345'", () => {
-    test("Then it should respond with a 201 and a valid access token", async () => {
+    test("Then it should respond with a 200 and a valid access token", async () => {
       const password = "12345";
       const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -55,7 +55,7 @@ describe("Given a POST /users/login endpoint", () => {
   });
 
   describe("When it receives a request with username 'xavi' and password '12345' that is not already registered", () => {
-    test("Then it should respond with a 500 and a 'Something went wrong' error message", async () => {
+    test("Then it should respond with a 401 and a 'Wrong credentials' error message", async () => {
       const expectedMessage = "Wrong credentials";
 
       const logindata = {
@@ -72,8 +72,8 @@ describe("Given a POST /users/login endpoint", () => {
     });
   });
 
-  describe("When it receives a request with username 'cata' and password '123456' that is not already registered", () => {
-    test("Then it should respond with a 500 and a 'Something went wrong' error message", async () => {
+  describe("When it receives a request with username 'xavi' and password '123456' that is not already registered", () => {
+    test("Then it should respond with a 401 and a 'Wrong credentials' error message", async () => {
       const expectedMessage = "Wrong credentials";
 
       const logindata = {
