@@ -1,9 +1,9 @@
 import { Factory } from "fishery";
 import { faker } from "@faker-js/faker";
-import type { SessionStructure } from "../database/models/Session";
 import mongoose from "mongoose";
+import type { SessionStructureWithId } from "../server/controllers/sessionControllers/types";
 
-const sessionsFactory = Factory.define<SessionStructure>(() => ({
+const sessionsFactory = Factory.define<SessionStructureWithId>(() => ({
   content: faker.lorem.paragraph(1),
   date: faker.date.birthdate().toDateString(),
   // eslint-disable-next-line no-implicit-coercion
@@ -18,6 +18,7 @@ const sessionsFactory = Factory.define<SessionStructure>(() => ({
   picture: faker.image.avatar(),
   supabasePicture: faker.image.avatar(),
   owner: new mongoose.Types.ObjectId(),
+  _id: new mongoose.Types.ObjectId().toString(),
 }));
 
 export const getRandomSession = () => sessionsFactory.build();

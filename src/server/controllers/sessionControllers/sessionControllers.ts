@@ -4,7 +4,8 @@ import Session from "../../../database/models/Session.js";
 import type { CustomRequest } from "./types";
 import errorsMessageSet from "../../../CustomError/errorsMessageSet.js";
 
-const { noAvailableSessions, cantRetrieveSessions, code404 } = errorsMessageSet;
+const { noAvailableSessions, cantRetrieveSessions, code404, sessionNotFound } =
+  errorsMessageSet;
 
 export const getAllSessions = async (
   req: CustomRequest,
@@ -57,9 +58,10 @@ export const getOneSession = async (
 ) => {
   try {
     const { id } = req.params;
-    const session = await Session.findById(id);
+    const session = await Session.findById(id).exec();
+
     if (!session) {
-      res.status(404).json({ error: "Session not found" });
+      next(sessionNotFound);
       return;
     }
 

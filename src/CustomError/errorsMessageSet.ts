@@ -37,6 +37,12 @@ const errorsMessageSet = {
     401
   ),
 
+  sessionNotFound: new CustomError(
+    "Session not found",
+    "Session not found",
+    404
+  ),
+
   cantRetrieveSessions: "Can't retrieve available sessions",
   invalidToken: "Invalid token",
   code404: 404,
