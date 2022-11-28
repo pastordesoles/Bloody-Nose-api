@@ -14,6 +14,7 @@ import { environment } from "../../../loadEnvironment";
 const { sessionsEndpoint, list } = routes;
 const { jwt: jwtSecret } = environment;
 const sessionEndpoint = `${sessionsEndpoint}${list}`;
+const oneSession = `${sessionsEndpoint}/session/`;
 
 let server: MongoMemoryServer;
 
@@ -91,6 +92,54 @@ describe("Given a GET /sessions/list endpoint", () => {
       const response = await request(app)
         .get(sessionEndpoint)
         .set("Origin", "http://allowed.com")
+        .expect(expectedStatus);
+
+      expect(response.body).toHaveProperty("error");
+    });
+  });
+});
+
+describe("Given a GET /sessions/session/:id endpoint", () => {
+  describe("When it receives a request with valid token and there are 10 sessions in the database", () => {
+    test("Then it should respond with a session and status 200", async () => {
+      const expectedStatus = 200;
+      const session = sessionsList[0];
+
+      await Session.create(sessionsList);
+
+      const response = await request(app)
+        .get(`${oneSession}${session._id}`)
+        .set("Authorization", `Bearer ${requestUserToken}`)
+        .expect(expectedStatus);
+
+      expect(response.body).toHaveProperty("session");
+    });
+  });
+
+  describe("When it receives a request with with an invalid token and there are 10 sessions in the database", () => {
+    test("Then it should respond with a 401 status and an error", async () => {
+      const expectedStatus = 401;
+      const session = sessionsList[0];
+
+      await Session.create(sessionsList);
+
+      const response = await request(app)
+        .get(`${oneSession}${session._id}`)
+        .set("Authorization", `Bearer`)
+        .expect(expectedStatus);
+
+      expect(response.body).toHaveProperty("error");
+    });
+  });
+
+  describe("When it receives a request with valid token and there are 0 sessions in the database", () => {
+    test("Then it should respond with a session and status 404", async () => {
+      const expectedStatus = 404;
+      const session = sessionsList[0];
+
+      const response = await request(app)
+        .get(`${oneSession}${session._id}`)
+        .set("Authorization", `Bearer ${requestUserToken}`)
         .expect(expectedStatus);
 
       expect(response.body).toHaveProperty("error");
