@@ -13,7 +13,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"username\": \"xavi\",\r\n    \"password\": \"12345678\",\r\n    \"email\": \"a@xav.com\"\r\n}",
+          "raw": "{\r\n    \"username\": \"xavii\",\r\n    \"password\": \"12345678\",\r\n    \"email\": \"a@xav.com\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -68,6 +68,19 @@
         }
       },
       "response": []
+    },
+    {
+      "name": "Get one session",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{LocalOrigin}}/sessions/session/6381f1d09999761599b35679",
+          "host": ["{{LocalOrigin}}"],
+          "path": ["sessions", "session", "6381f1d09999761599b35679"]
+        }
+      },
+      "response": []
     }
   ],
   "auth": {
@@ -75,7 +88,7 @@
     "bearer": [
       {
         "key": "token",
-        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzN2YzNzMwZDE5Y2U3YTliMDdhODc3ZSIsInVzZXJuYW1lIjoieGF2aSIsImlhdCI6MTY2OTMyNjI2MiwiZXhwIjoxNjY5NDk5MDYyfQ.AwKvsW2TgLUZl_Pc6Iu0jt48XABZiRbQTAi-rxZNlvQ",
+        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzN2YzNzMwZDE5Y2U3YTliMDdhODc3ZSIsInVzZXJuYW1lIjoieGF2aSIsImlhdCI6MTY2OTU2ODc1MCwiZXhwIjoxNjY5NzQxNTUwfQ.5UpP-UGqhm2L2OzFi39OebGGe6GKZQAxJuiul1XP04g",
         "type": "string"
       }
     ]
