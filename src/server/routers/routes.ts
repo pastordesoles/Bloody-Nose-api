@@ -4,6 +4,7 @@ const routes = {
   register: "/register",
   login: "/login",
   list: "/list",
+  session: "/session/:id",
 };
 
 export default routes;

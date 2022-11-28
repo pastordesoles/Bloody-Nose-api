@@ -11,6 +11,3 @@ const userFactory = Factory.define<RegisterData>(() => ({
 }));
 
 export const getRandomUser = () => userFactory.build();
-
-export const getRandomUserList = (number: number) =>
-  userFactory.buildList(number);
