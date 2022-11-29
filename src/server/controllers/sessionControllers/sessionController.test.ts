@@ -4,7 +4,11 @@ import {
   getRandomSession,
   getRandomSessionsList,
 } from "../../../factories/sessionsFactory";
-import { getAllSessions, getOneSession } from "./sessionControllers";
+import {
+  createOneSession,
+  getAllSessions,
+  getOneSession,
+} from "./sessionControllers";
 import type { CustomRequest } from "./types";
 
 afterEach(() => {
@@ -174,6 +178,52 @@ describe("Given a getOneSession controller", () => {
       );
 
       expect(next).toHaveBeenCalled();
+    });
+  });
+});
+
+describe("Given a createOneSession controller", () => {
+  describe("When it receives a request", () => {
+    test("Then it should invoke its response with status 201 and the newly created session", async () => {
+      const expectedStatus = 201;
+      const session = getRandomSession();
+      const expectedResponse = { ...session };
+
+      req.body = session;
+      req.userId = session.owner.toString();
+
+      Session.create = jest.fn().mockReturnValueOnce({
+        ...session,
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        toJSON: jest.fn().mockReturnValueOnce(session),
+      });
+
+      await createOneSession(
+        req as CustomRequest,
+        res as Response,
+        next as NextFunction
+      );
+
+      expect(res.status).toHaveBeenCalledWith(expectedStatus);
+      expect(res.json).toHaveBeenCalledWith({
+        session: expectedResponse,
+      });
+    });
+  });
+
+  describe("When it receives a request and Session create rejects", () => {
+    test("Then next should be invoked with an error", async () => {
+      const error = new Error();
+
+      Session.create = jest.fn().mockRejectedValue(error);
+
+      await createOneSession(
+        req as CustomRequest,
+        res as Response,
+        next as NextFunction
+      );
+
+      expect(next).toHaveBeenCalledWith(error);
     });
   });
 });
