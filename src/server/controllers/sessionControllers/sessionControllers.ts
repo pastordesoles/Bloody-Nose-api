@@ -1,8 +1,9 @@
 import type { NextFunction, Response } from "express";
 import CustomError from "../../../CustomError/CustomError.js";
-import Session from "../../../database/models/Session.js";
+import type { SessionStructure } from "../../../database/models/Session.js";
 import type { CustomRequest } from "./types";
 import errorsMessageSet from "../../../CustomError/errorsMessageSet.js";
+import { Session } from "../../../database/models/Session.js";
 
 const { noAvailableSessions, cantRetrieveSessions, code404, sessionNotFound } =
   errorsMessageSet;
@@ -73,5 +74,30 @@ export const getOneSession = async (
       500
     );
     next(customError);
+  }
+};
+
+export const createOneSession = async (
+  req: CustomRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  const { userId } = req;
+  const receivedSession = req.body as SessionStructure;
+
+  try {
+    const newSession = await Session.create({
+      ...receivedSession,
+      owner: userId,
+    });
+
+    res.status(201).json({
+      session: {
+        ...newSession.toJSON(),
+        picture: newSession.picture,
+      },
+    });
+  } catch (error: unknown) {
+    next(error);
   }
 };

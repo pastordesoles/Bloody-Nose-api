@@ -1,5 +1,5 @@
 import type { NextFunction, Response } from "express";
-import Session from "../../../database/models/Session";
+import { Session } from "../../../database/models/Session";
 import {
   getRandomSession,
   getRandomSessionsList,

@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import request from "supertest";
 import mongoose from "mongoose";
 import connectDb from "../../../database/connectDb";
-import Session from "../../../database/models/Session";
+import { Session } from "../../../database/models/Session";
 import routes from "../routes";
 import { getRandomSessionsList } from "../../../factories/sessionsFactory";
 import app from "../../app";
