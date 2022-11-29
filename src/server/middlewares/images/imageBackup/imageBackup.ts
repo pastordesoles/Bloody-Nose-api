@@ -31,20 +31,17 @@ const imageBackup = async (
   const fileExtension = path.extname(req.file.originalname);
   const fileBaseName = path.basename(req.file.originalname, fileExtension);
   const newFileName = `${fileBaseName}-${timeStamp}${fileExtension}`;
-  const newFilePath = path.join("assets", "images", newFileName);
+  const newFilePath = path.join("assets", newFileName);
 
   try {
-    await fs.rename(
-      path.join("assets", "images", req.file.filename),
-      newFilePath
-    );
+    await fs.rename(path.join("assets", req.file.filename), newFilePath);
     const fileContent = await fs.readFile(newFilePath);
 
-    await bucket.upload(req.file.filename + req.file.originalname, fileContent);
+    await bucket.upload(req.file.filename, fileContent);
 
     const {
       data: { publicUrl },
-    } = bucket.getPublicUrl(req.file.filename + req.file.originalname);
+    } = bucket.getPublicUrl(req.file.filename);
 
     req.body.picture = newFilePath;
     req.body.supabasePicture = publicUrl;

@@ -19,7 +19,7 @@ const { list, session, createSession } = routes;
 const sessionRouter = express.Router();
 
 const upload = multer({
-  dest: path.join("assets", "images"),
+  dest: path.join("assets"),
   limits: { fileSize: 1048576 },
 });
 

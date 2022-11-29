@@ -12,11 +12,11 @@ const imageResize = async (
   const { originalname, filename } = req.file;
 
   try {
-    await sharp(path.join("assets/images", filename))
+    await sharp(path.join("assets", filename))
       .resize(320, 180, { fit: "cover" })
       .webp({ quality: 90 })
       .toFormat("webp")
-      .toFile(path.join("assets/images", `${originalname}.webp`));
+      .toFile(path.join("assets", `${originalname}.webp`));
 
     req.file.filename = `${originalname}.webp`;
     req.file.originalname = `${originalname}.webp`;
