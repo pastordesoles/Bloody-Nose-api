@@ -2,8 +2,8 @@
 import express from "express";
 import multer from "multer";
 import path from "path";
+import { validate } from "express-validation";
 import routes from "../routes.js";
-
 import {
   createOneSession,
   getAllSessions,
@@ -11,6 +11,8 @@ import {
 } from "../../controllers/sessionControllers/sessionControllers.js";
 import auth from "../../middlewares/auth/auth.js";
 import imageBackup from "../../middlewares/images/imageBackup/imageBackup.js";
+import imageResize from "../../middlewares/images/imageResize/imageResize.js";
+import sessionSchema from "../../../schemas/sessionSchema.js";
 
 const { list, session, createSession } = routes;
 
@@ -27,6 +29,8 @@ sessionRouter.post(
   createSession,
   auth,
   upload.single("picture"),
+  validate(sessionSchema, {}, { abortEarly: false }),
+  imageResize,
   imageBackup,
   createOneSession
 );

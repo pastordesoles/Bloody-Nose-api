@@ -18,7 +18,7 @@ const oneSession = `${sessionsEndpoint}/session/`;
 
 let server: MongoMemoryServer;
 
-const sessionsList = getRandomSessionsList(10);
+const sessionsList = getRandomSessionsList(5);
 
 const user = getRandomUser();
 const requestUserToken = jwt.sign(
@@ -55,7 +55,7 @@ describe("Given a GET /sessions/list endpoint", () => {
         .expect(expectedStatus);
 
       expect(response.body).toHaveProperty("sessions");
-      expect(response.body.sessions.sessions).toHaveLength(10);
+      expect(response.body.sessions.sessions).toHaveLength(5);
     });
   });
 
