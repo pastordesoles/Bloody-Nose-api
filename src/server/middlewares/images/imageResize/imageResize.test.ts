@@ -1,10 +1,7 @@
-import type { NextFunction, Response } from "express";
+import type { NextFunction } from "express";
 import fs from "fs/promises";
-import type { SessionStructure } from "../../../../database/models/Session";
 import { getRandomSession } from "../../../../factories/sessionsFactory";
-
 import type { CustomRequest } from "../../../controllers/sessionControllers/types";
-
 import imageResize from "./imageResize";
 
 const newSession = getRandomSession();
@@ -14,7 +11,9 @@ let mockToFile = jest.fn();
 jest.mock("sharp", () => () => ({
   resize: jest.fn().mockReturnValue({
     webp: jest.fn().mockReturnValue({
-      toFile: mockToFile,
+      toFormat: jest.fn().mockReturnValue({
+        toFile: mockToFile,
+      }),
     }),
   }),
 }));
@@ -38,19 +37,20 @@ afterAll(async () => {
   await fs.unlink("assets/randomsession");
 });
 
-describe("Given the resizeImages", () => {
-  describe("When it's instantiated with a correct image", () => {
-    test("Then should call next", async () => {
+describe("Given the imageResize middleware", () => {
+  describe("When it's instantiated with a valid image", () => {
+    test("Then it should should call next", async () => {
+      const expectedFilename = "testjpg.webp";
       req.file = file as Express.Multer.File;
 
       await imageResize(req as CustomRequest, null, next);
 
-      expect(next).toHaveBeenCalled();
+      expect(req.file.filename).toBe(expectedFilename);
     });
   });
 
-  describe("When it's instantiated with a incorrect image", () => {
-    test("Then should return", async () => {
+  describe("When it's instantiated with an invalid image", () => {
+    test("Then it should call next", async () => {
       jest.clearAllMocks();
       jest.restoreAllMocks();
 
