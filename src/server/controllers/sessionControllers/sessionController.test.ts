@@ -36,7 +36,7 @@ describe("Given a getAllSessions controller", () => {
       const expectedStatus = 200;
 
       Session.countDocuments = jest.fn().mockReturnValue({
-        exec: jest.fn().mockReturnValue(10),
+        exec: jest.fn().mockReturnValue(5),
       });
 
       Session.find = jest.fn().mockReturnValue({
