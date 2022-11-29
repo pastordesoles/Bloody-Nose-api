@@ -7,6 +7,9 @@ interface Environment {
   debug: string;
   uri: string;
   jwt: string;
+  supabaseUrl: string;
+  supabaseKey: string;
+  supabaseBucket: string;
 }
 
 const {
@@ -14,7 +17,18 @@ const {
   DEBUG: debug,
   MONGODB_URL: uri,
   JWT_SECRET: jwt,
+  SUPABASE_URL: supabaseUrl,
+  SUPABASE_KEY: supabaseKey,
+  SUPABASE_BUCKET: supabaseBucket,
 } = process.env;
 
-// eslint-disable-next-line no-implicit-coercion
-export const environment: Environment = { port: +port, debug, uri, jwt };
+export const environment: Environment = {
+  // eslint-disable-next-line no-implicit-coercion
+  port: +port,
+  debug,
+  uri,
+  jwt,
+  supabaseBucket,
+  supabaseKey,
+  supabaseUrl,
+};
