@@ -18,8 +18,8 @@ const imageResize = async (
       .toFormat("webp")
       .toFile(path.join("assets/images", `${originalname}.webp`));
 
-    req.body.picture = `${originalname}.webp`;
     req.file.filename = `${originalname}.webp`;
+    req.file.originalname = `${originalname}.webp`;
 
     next();
   } catch (error: unknown) {
