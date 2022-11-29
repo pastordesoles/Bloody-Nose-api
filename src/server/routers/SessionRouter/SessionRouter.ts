@@ -10,6 +10,7 @@ import {
   getOneSession,
 } from "../../controllers/sessionControllers/sessionControllers.js";
 import auth from "../../middlewares/auth/auth.js";
+import imageBackup from "../../middlewares/images/imageBackup/imageBackup.js";
 
 const { list, session, createSession } = routes;
 
@@ -26,6 +27,7 @@ sessionRouter.post(
   createSession,
   auth,
   upload.single("picture"),
+  imageBackup,
   createOneSession
 );
 
