@@ -14,6 +14,7 @@ const app = express();
 app.use(cors(corsOptions));
 app.use(morgan("dev"));
 app.use(express.json());
+app.use("/assets", express.static("assets"));
 app.disable("x-powered-by");
 
 app.use(usersEndpoint, userRouter);

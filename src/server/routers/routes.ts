@@ -5,6 +5,7 @@ const routes = {
   login: "/login",
   list: "/list",
   session: "/session/:id",
+  createSession: "/add",
 };
 
 export default routes;
