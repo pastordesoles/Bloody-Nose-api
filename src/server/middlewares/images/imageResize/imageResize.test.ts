@@ -40,7 +40,7 @@ afterAll(async () => {
 describe("Given the imageResize middleware", () => {
   describe("When it's instantiated with a valid image", () => {
     test("Then it should should call next", async () => {
-      const expectedFilename = "testjpg.webp";
+      const expectedFilename = "test";
       req.file = file as Express.Multer.File;
 
       await imageResize(req as CustomRequest, null, next);

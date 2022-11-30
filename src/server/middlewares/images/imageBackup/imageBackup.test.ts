@@ -41,7 +41,7 @@ beforeEach(async () => {
 });
 
 afterAll(async () => {
-  await fs.unlink("assets/testOriginalName-1111.webp");
+  await fs.unlink("assets/testFileName.webp");
   await fs.unlink("assets/testOriginalName.webp");
   jest.clearAllMocks();
 });
@@ -49,22 +49,12 @@ afterAll(async () => {
 describe("Given a imageBackup middleware", () => {
   describe("When it's invoked with a request that has a file", () => {
     test("Then it should rename the file, upload it to supabase and call next", async () => {
-      req.file = fileRequest as Express.Multer.File;
+      fs.readFile = jest.fn().mockResolvedValueOnce(newSession.picture);
 
       bucket.getPublicUrl = jest.fn().mockReturnValueOnce({
-        data: { publicUrl: "testFileName.webp" },
+        data: { publicUrl: newSession.picture },
       });
       await imageBackup(req as CustomRequest, null, next);
-      expect(next).toHaveBeenCalled();
-    });
-  });
-
-  describe("When it's invoked with a request that doesn't have a file", () => {
-    test("Then it should call next", async () => {
-      const emptyReq: Partial<CustomRequest> = {};
-
-      await imageBackup(emptyReq as CustomRequest, null, next);
-
       expect(next).toHaveBeenCalled();
     });
   });
