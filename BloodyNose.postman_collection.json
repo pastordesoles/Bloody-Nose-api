@@ -81,6 +81,74 @@
         }
       },
       "response": []
+    },
+    {
+      "name": "Create a Session",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "title",
+              "value": "Randori",
+              "type": "text"
+            },
+            {
+              "key": "picture",
+              "type": "file",
+              "src": "/C:/Users/Xavi/Downloads/28510-1-fight-free-download.png"
+            },
+            {
+              "key": "location",
+              "value": "Barcelona",
+              "type": "text"
+            },
+            {
+              "key": "participants",
+              "value": "4",
+              "type": "text"
+            },
+            {
+              "key": "material",
+              "value": "none",
+              "type": "text"
+            },
+            {
+              "key": "level",
+              "value": "expert",
+              "type": "text"
+            },
+            {
+              "key": "content",
+              "value": "fuahggg",
+              "type": "text"
+            },
+            {
+              "key": "style",
+              "value": "karate",
+              "type": "text"
+            },
+            {
+              "key": "length",
+              "value": "60",
+              "type": "text"
+            },
+            {
+              "key": "date",
+              "value": "20-09-2022",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{LocalOrigin}}/sessions/add",
+          "host": ["{{LocalOrigin}}"],
+          "path": ["sessions", "add"]
+        }
+      },
+      "response": []
     }
   ],
   "auth": {
@@ -88,7 +156,7 @@
     "bearer": [
       {
         "key": "token",
-        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzN2YzNzMwZDE5Y2U3YTliMDdhODc3ZSIsInVzZXJuYW1lIjoieGF2aSIsImlhdCI6MTY2OTU2ODc1MCwiZXhwIjoxNjY5NzQxNTUwfQ.5UpP-UGqhm2L2OzFi39OebGGe6GKZQAxJuiul1XP04g",
+        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzN2YzNzMwZDE5Y2U3YTliMDdhODc3ZSIsInVzZXJuYW1lIjoieGF2aSIsImlhdCI6MTY2OTc0MjY4NCwiZXhwIjoxNjY5OTE1NDg0fQ.nn3luaGfBa2NarHVsMiykn_BornEIhlE-kYiJ0Eg8OE",
         "type": "string"
       }
     ]
