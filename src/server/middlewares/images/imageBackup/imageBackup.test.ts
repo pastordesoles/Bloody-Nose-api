@@ -22,6 +22,8 @@ describe("Given a imageBackup middleware", () => {
     test("Then it should rename the file, upload it to supabase and call next", async () => {
       fs.readFile = jest.fn().mockResolvedValueOnce(newSession.picture);
 
+      bucket.upload = jest.fn().mockResolvedValueOnce(undefined);
+
       bucket.getPublicUrl = jest.fn().mockReturnValueOnce({
         data: { publicUrl: newSession.picture },
       });
