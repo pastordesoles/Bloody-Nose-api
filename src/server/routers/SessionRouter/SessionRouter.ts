@@ -13,6 +13,7 @@ import auth from "../../middlewares/auth/auth.js";
 import imageBackup from "../../middlewares/images/imageBackup/imageBackup.js";
 import imageResize from "../../middlewares/images/imageResize/imageResize.js";
 import sessionSchema from "../../../schemas/sessionSchema.js";
+import imageRename from "../../middlewares/images/imageRename/imageRename.js";
 
 const { list, session, createSession } = routes;
 
@@ -30,6 +31,7 @@ sessionRouter.post(
   auth,
   upload.single("picture"),
   validate(sessionSchema, {}, { abortEarly: false }),
+  imageRename,
   imageResize,
   imageBackup,
   createOneSession
