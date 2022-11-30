@@ -22,6 +22,7 @@ jobs:
           JWT_SECRET: ${{secrets.JWT_SECRET}}
           SUPABASE_URL: ${{secrets.SUPABASE_URL}}
           SUPABASE_KEY: ${{secrets.SUPABASE_KEY}}
+          UPLOAD_PATH: ${{secrets.UPLOAD_PATH}}
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
