@@ -6,15 +6,17 @@ import { generalError, notFoundError } from "./middlewares/errors/errors.js";
 import userRouter from "./routers/UserRouter/UserRouter.js";
 import routes from "./routers/routes.js";
 import sessionRouter from "./routers/SessionRouter/SessionRouter.js";
+import { environment } from "../loadEnvironment.js";
 
 const { usersEndpoint, sessionsEndpoint } = routes;
+const { uploadPath } = environment;
 
 const app = express();
 
 app.use(cors(corsOptions));
 app.use(morgan("dev"));
 app.use(express.json());
-app.use("/assets", express.static("assets"));
+app.use(`/${uploadPath}`, express.static(uploadPath));
 app.disable("x-powered-by");
 
 app.use(usersEndpoint, userRouter);

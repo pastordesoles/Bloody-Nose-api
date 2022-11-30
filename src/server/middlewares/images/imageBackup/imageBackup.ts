@@ -6,7 +6,7 @@ import type { SessionStructure } from "../../../../database/models/Session.js";
 import type { CustomRequest } from "../../../controllers/sessionControllers/types";
 import { environment } from "../../../../loadEnvironment.js";
 
-const { supabaseBucket, supabaseKey, supabaseUrl } = environment;
+const { supabaseBucket, supabaseKey, supabaseUrl, uploadPath } = environment;
 
 const supaBase = createClient(supabaseUrl, supabaseKey);
 
@@ -25,7 +25,7 @@ const imageBackup = async (
 
   try {
     const mainImage = picture;
-    const fileContent = await fs.readFile(path.join("assets", mainImage));
+    const fileContent = await fs.readFile(path.join(uploadPath, mainImage));
 
     await bucket.upload(mainImage, fileContent);
 

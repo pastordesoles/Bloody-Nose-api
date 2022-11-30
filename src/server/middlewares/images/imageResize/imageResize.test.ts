@@ -1,8 +1,11 @@
 import type { NextFunction } from "express";
 import fs from "fs/promises";
 import { getRandomSession } from "../../../../factories/sessionsFactory";
+import { environment } from "../../../../loadEnvironment";
 import type { CustomRequest } from "../../../controllers/sessionControllers/types";
 import imageResize from "./imageResize";
+
+const { uploadPath } = environment;
 
 const newSession = getRandomSession();
 
@@ -30,11 +33,11 @@ const req: Partial<CustomRequest> = {
 const next = jest.fn() as NextFunction;
 
 beforeAll(async () => {
-  await fs.writeFile("assets/randomsession", "randomsession");
+  await fs.writeFile(`${uploadPath}/randomsession`, "randomsession");
 });
 
 afterAll(async () => {
-  await fs.unlink("assets/randomsession");
+  await fs.unlink(`${uploadPath}/randomsession`);
 });
 
 describe("Given the imageResize middleware", () => {

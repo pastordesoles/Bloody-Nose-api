@@ -2,8 +2,11 @@ import fs from "fs/promises";
 import path from "path";
 import type { SessionStructure } from "../../../../database/models/Session";
 import { getRandomSession } from "../../../../factories/sessionsFactory";
+import { environment } from "../../../../loadEnvironment";
 import type { CustomRequest } from "../../../controllers/sessionControllers/types";
 import imageRename from "./imageRename";
+
+const { uploadPath } = environment;
 
 const newSession = getRandomSession();
 
@@ -31,12 +34,12 @@ describe("Given a imagesRename middleware", () => {
   const expectedFileName = `image-${timestamp}.jpg`;
 
   beforeEach(async () => {
-    await fs.writeFile(path.join("assets", "filehash"), Buffer.from(""));
+    await fs.writeFile(path.join(uploadPath, "filehash"), Buffer.from(""));
   });
 
   afterAll(async () => {
-    await fs.unlink(`assets/image-${timestamp}.jpg`);
-    await fs.unlink(`assets/filehash`);
+    await fs.unlink(`${uploadPath}/image-${timestamp}.jpg`);
+    await fs.unlink(`${uploadPath}/filehash`);
   });
 
   describe("When it receives a CustomRequest with an image file 'image.jpg'", () => {
@@ -44,7 +47,7 @@ describe("Given a imagesRename middleware", () => {
       const file: Partial<Express.Multer.File> = {
         filename: "filehash",
         originalname: "image.jpg",
-        path: path.join("assets", "filehash"),
+        path: path.join(uploadPath, "filehash"),
       };
 
       req.file = file as Express.Multer.File;
@@ -60,7 +63,7 @@ describe("Given a imagesRename middleware", () => {
       const file: Partial<Express.Multer.File> = {
         filename: "image.jpg",
         originalname: "image.jpg",
-        path: path.join("assets", "filehash"),
+        path: path.join(uploadPath, "filehash"),
       };
 
       req.file = file as Express.Multer.File;

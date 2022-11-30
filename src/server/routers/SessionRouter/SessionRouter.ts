@@ -14,13 +14,15 @@ import imageBackup from "../../middlewares/images/imageBackup/imageBackup.js";
 import imageResize from "../../middlewares/images/imageResize/imageResize.js";
 import sessionSchema from "../../../schemas/sessionSchema.js";
 import imageRename from "../../middlewares/images/imageRename/imageRename.js";
+import { environment } from "../../../loadEnvironment.js";
 
 const { list, session, createSession } = routes;
+const { uploadPath } = environment;
 
 const sessionRouter = express.Router();
 
 const upload = multer({
-  dest: path.join("assets"),
+  dest: path.join(uploadPath),
   limits: { fileSize: 1048576 },
 });
 
