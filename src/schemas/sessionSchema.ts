@@ -8,7 +8,9 @@ const sessionSchema = {
     material: Joi.string().min(3).required(),
     level: Joi.string().min(3).required(),
     content: Joi.string().min(5).required(),
-    style: Joi.string().min(3).required(),
+    style: Joi.string()
+      .valid("karate", "boxing", "kickboxing", "mma")
+      .required(),
     length: Joi.number().required(),
     date: Joi.string().min(4).required(),
   }),

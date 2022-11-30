@@ -39,7 +39,7 @@ afterAll(async () => {
 
 describe("Given the imageResize middleware", () => {
   describe("When it's instantiated with a valid image", () => {
-    test("Then it should should call next", async () => {
+    test("Then it should call next", async () => {
       const expectedFilename = "test";
       req.file = file as Express.Multer.File;
 
