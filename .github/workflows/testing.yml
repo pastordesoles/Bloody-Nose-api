@@ -20,3 +20,7 @@ env:
   DEBUG: ${{ secrets.DEBUG }}
   MONGODB_URL: ${{ secrets.MONGODB_URL }}
   JWT_SECRET: ${{secrets.JWT_SECRET}}
+  SUPABASE_URL: ${{secrets.SUPABASE_URL}}
+  SUPABASE_KEY: ${{secrets.SUPABASE_KEY}}
+  SUPABASE_BUCKET: ${{secrets.SUPABASE_BUCKET}}
+  UPLOAD_PATH: ${{secrets.UPLOAD_PATH}}

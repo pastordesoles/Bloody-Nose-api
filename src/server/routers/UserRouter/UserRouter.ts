@@ -9,11 +9,13 @@ import {
 } from "../../controllers/userControllers/userControllers.js";
 import routes from "../routes.js";
 import userSchema from "../../../schemas/userSchema.js";
+import { environment } from "../../../loadEnvironment.js";
 
 const { register, login } = routes;
+const { uploadPath } = environment;
 
 const upload = multer({
-  dest: path.join("assets", "images"),
+  dest: path.join(uploadPath),
   limits: { fileSize: 1048576 },
 });
 

@@ -53,6 +53,4 @@ const sessionSchema = new Schema({
 
 export type SessionStructure = InferSchemaType<typeof sessionSchema>;
 
-const Session = model("Session", sessionSchema, "sessions");
-
-export default Session;
+export const Session = model("Session", sessionSchema, "sessions");

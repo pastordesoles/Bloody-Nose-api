@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import request from "supertest";
 import mongoose from "mongoose";
 import connectDb from "../../../database/connectDb";
-import Session from "../../../database/models/Session";
+import { Session } from "../../../database/models/Session";
 import routes from "../routes";
 import { getRandomSessionsList } from "../../../factories/sessionsFactory";
 import app from "../../app";
@@ -18,7 +18,7 @@ const oneSession = `${sessionsEndpoint}/session/`;
 
 let server: MongoMemoryServer;
 
-const sessionsList = getRandomSessionsList(10);
+const sessionsList = getRandomSessionsList(5);
 
 const user = getRandomUser();
 const requestUserToken = jwt.sign(
@@ -55,7 +55,7 @@ describe("Given a GET /sessions/list endpoint", () => {
         .expect(expectedStatus);
 
       expect(response.body).toHaveProperty("sessions");
-      expect(response.body.sessions.sessions).toHaveLength(10);
+      expect(response.body.sessions.sessions).toHaveLength(5);
     });
   });
 
