@@ -10,7 +10,7 @@ const { supabaseBucket, supabaseKey, supabaseUrl } = environment;
 
 const supaBase = createClient(supabaseUrl, supabaseKey);
 
-const bucket = supaBase.storage.from(supabaseBucket);
+export const bucket = supaBase.storage.from(supabaseBucket);
 
 const imageBackup = async (
   req: CustomRequest<
@@ -26,7 +26,7 @@ const imageBackup = async (
     return;
   }
 
-  const timeStamp = Date.now();
+  const timeStamp = "1111";
 
   const fileExtension = path.extname(req.file.originalname);
   const fileBaseName = path.basename(req.file.originalname, fileExtension);
