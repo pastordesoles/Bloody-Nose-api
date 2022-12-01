@@ -1,12 +1,15 @@
 import type { NextFunction, Response } from "express";
+import fs from "fs/promises";
 import CustomError from "../../../CustomError/CustomError.js";
 import type { SessionStructure } from "../../../database/models/Session.js";
 import type { CustomRequest } from "./types";
 import errorsMessageSet from "../../../CustomError/errorsMessageSet.js";
 import { Session } from "../../../database/models/Session.js";
+import { environment } from "../../../loadEnvironment.js";
 
 const { noAvailableSessions, cantRetrieveSessions, code404, sessionNotFound } =
   errorsMessageSet;
+const { uploadPath } = environment;
 
 export const getAllSessions = async (
   req: CustomRequest,
@@ -99,5 +102,39 @@ export const createOneSession = async (
     });
   } catch (error: unknown) {
     next(error);
+  }
+};
+
+export const deleteOneSession = async (
+  req: CustomRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  const { id } = req.params;
+  const userIdtoCheck = req.userId;
+
+  try {
+    const session = await Session.findById(id).exec();
+
+    if (session.owner.toString() !== userIdtoCheck) {
+      const customError = new CustomError(
+        "Invalid id's",
+        "Error deleting session",
+        500
+      );
+      next(customError);
+      return;
+    }
+
+    await fs.unlink(`${uploadPath}/${session.picture}`);
+    await Session.findByIdAndDelete(id).exec();
+    res.status(200).json({ message: "Session has been deleted" });
+  } catch (error: unknown) {
+    const customError = new CustomError(
+      (error as Error).message,
+      "Error deleting session",
+      500
+    );
+    next(customError);
   }
 };

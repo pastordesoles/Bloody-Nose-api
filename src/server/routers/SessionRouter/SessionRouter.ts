@@ -6,6 +6,7 @@ import { validate } from "express-validation";
 import routes from "../routes.js";
 import {
   createOneSession,
+  deleteOneSession,
   getAllSessions,
   getOneSession,
 } from "../../controllers/sessionControllers/sessionControllers.js";
@@ -16,7 +17,7 @@ import sessionSchema from "../../../schemas/sessionSchema.js";
 import imageRename from "../../middlewares/images/imageRename/imageRename.js";
 import { environment } from "../../../loadEnvironment.js";
 
-const { list, session, createSession } = routes;
+const { list, session, createSession, deleteSession } = routes;
 const { uploadPath } = environment;
 
 const sessionRouter = express.Router();
@@ -38,5 +39,7 @@ sessionRouter.post(
   imageBackup,
   createOneSession
 );
+
+sessionRouter.delete(deleteSession, auth, deleteOneSession);
 
 export default sessionRouter;

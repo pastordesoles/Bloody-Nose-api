@@ -1,4 +1,6 @@
 import type { NextFunction, Response } from "express";
+import fs from "fs/promises";
+import CustomError from "../../../CustomError/CustomError";
 import { Session } from "../../../database/models/Session";
 import {
   getRandomSession,
@@ -6,6 +8,7 @@ import {
 } from "../../../factories/sessionsFactory";
 import {
   createOneSession,
+  deleteOneSession,
   getAllSessions,
   getOneSession,
 } from "./sessionControllers";
@@ -224,6 +227,92 @@ describe("Given a createOneSession controller", () => {
       );
 
       expect(next).toHaveBeenCalledWith(error);
+    });
+  });
+});
+
+describe("Given a deleteOneSession controller", () => {
+  const session = getRandomSession();
+  describe("When it receives a request with a valid id session", () => {
+    test("Then it should invoke respone's method status with 200 and the message 'Session has been deleted'", async () => {
+      const params = {
+        id: session._id,
+      };
+
+      req.params = params;
+      req.userId = session.owner.toString();
+      const expectedStatus = 200;
+
+      Session.findById = jest
+        .fn()
+        .mockReturnValue({ exec: jest.fn().mockReturnValue(session) });
+
+      fs.unlink = jest.fn();
+
+      Session.findByIdAndDelete = jest
+        .fn()
+        .mockReturnValue({ exec: jest.fn().mockReturnValue({}) });
+
+      await deleteOneSession(
+        req as CustomRequest,
+        res as Response,
+        next as NextFunction
+      );
+
+      expect(res.status).toHaveBeenCalledWith(expectedStatus);
+      expect(res.json).toHaveBeenCalledWith({
+        message: "Session has been deleted",
+      });
+    });
+  });
+
+  describe("When it receives a request with an invalid id session", () => {
+    test("Then it should call next with an error", async () => {
+      const params = {
+        id: session._id,
+      };
+
+      req.params = params;
+      req.userId = "";
+      const error = new CustomError(
+        "Invalid id's",
+        "Error deleting session",
+        500
+      );
+
+      Session.findById = jest
+        .fn()
+        .mockReturnValue({ exec: jest.fn().mockReturnValue(session) });
+
+      await deleteOneSession(
+        req as CustomRequest,
+        res as Response,
+        next as NextFunction
+      );
+
+      expect(next).toHaveBeenCalledWith(error);
+    });
+  });
+
+  describe("When it receives a request with an inexsistent id session", () => {
+    test("Then it should call next", async () => {
+      const params = {
+        id: "",
+      };
+
+      req.params = params;
+
+      Session.findById = jest
+        .fn()
+        .mockReturnValue({ exec: jest.fn().mockReturnValue(null) });
+
+      await deleteOneSession(
+        req as CustomRequest,
+        res as Response,
+        next as NextFunction
+      );
+
+      expect(next).toHaveBeenCalled();
     });
   });
 });
