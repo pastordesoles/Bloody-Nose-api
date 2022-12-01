@@ -16,6 +16,7 @@ const imageResize = async (
 
   try {
     const fileExtension = path.extname(req.file.filename);
+
     const fileBaseName = path.basename(req.file.filename, fileExtension);
     const newFileName = `${fileBaseName}`;
 

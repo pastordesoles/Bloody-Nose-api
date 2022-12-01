@@ -6,6 +6,7 @@ const routes = {
   list: "/list",
   session: "/session/:id",
   createSession: "/add",
+  deleteSession: "/delete/:id",
 };
 
 export default routes;

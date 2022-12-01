@@ -101,3 +101,36 @@ export const createOneSession = async (
     next(error);
   }
 };
+
+export const deleteOneSession = async (
+  req: CustomRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  const { id } = req.params;
+  const userIdtoCheck = req.userId;
+
+  try {
+    const session = await Session.findById(id).exec();
+
+    if (session.owner.toString() !== userIdtoCheck) {
+      const customError = new CustomError(
+        "Invalid id's",
+        "Error deleting session",
+        500
+      );
+      next(customError);
+      return;
+    }
+
+    await Session.findByIdAndDelete(id).exec();
+    res.status(200).json({ message: "Session has been deleted" });
+  } catch (error: unknown) {
+    const customError = new CustomError(
+      (error as Error).message,
+      "Error deleting session",
+      500
+    );
+    next(customError);
+  }
+};
