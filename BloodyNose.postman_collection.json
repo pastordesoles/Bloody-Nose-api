@@ -56,13 +56,13 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "{{LocalOrigin}}/sessions/list?page=0",
+          "raw": "{{LocalOrigin}}/sessions/list?page=2",
           "host": ["{{LocalOrigin}}"],
           "path": ["sessions", "list"],
           "query": [
             {
               "key": "page",
-              "value": "0"
+              "value": "2"
             }
           ]
         }
@@ -98,7 +98,7 @@
             {
               "key": "picture",
               "type": "file",
-              "src": "/C:/Users/Xavi/Downloads/28510-1-fight-free-download.png"
+              "src": "/C:/Users/Xavi/Desktop/Bruce_Lee_1973.jpg"
             },
             {
               "key": "location",
@@ -149,6 +149,19 @@
         }
       },
       "response": []
+    },
+    {
+      "name": "Delete a session",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{LocalOrigin}}/sessions/delete/6388fd9942c07391ec74996d",
+          "host": ["{{LocalOrigin}}"],
+          "path": ["sessions", "delete", "6388fd9942c07391ec74996d"]
+        }
+      },
+      "response": []
     }
   ],
   "auth": {
@@ -156,7 +169,7 @@
     "bearer": [
       {
         "key": "token",
-        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzN2YzNzMwZDE5Y2U3YTliMDdhODc3ZSIsInVzZXJuYW1lIjoieGF2aSIsImlhdCI6MTY2OTc0MjY4NCwiZXhwIjoxNjY5OTE1NDg0fQ.nn3luaGfBa2NarHVsMiykn_BornEIhlE-kYiJ0Eg8OE",
+        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzN2YzNzMwZDE5Y2U3YTliMDdhODc3ZSIsInVzZXJuYW1lIjoieGF2aSIsImlhdCI6MTY2OTkyMDQzOCwiZXhwIjoxNjcwMDkzMjM4fQ.8dCeLOft9sleui2MWsfUETDvJSWW32UE1FFNebW_RmE",
         "type": "string"
       }
     ]
