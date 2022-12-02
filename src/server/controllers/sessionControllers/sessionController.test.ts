@@ -10,6 +10,7 @@ import {
   deleteOneSession,
   getAllSessions,
   getOneSession,
+  updateOneSession,
 } from "./sessionControllers";
 import type { CustomRequest } from "./types";
 
@@ -304,6 +305,88 @@ describe("Given a deleteOneSession controller", () => {
         .mockReturnValue({ exec: jest.fn().mockReturnValue(null) });
 
       await deleteOneSession(
+        req as CustomRequest,
+        res as Response,
+        next as NextFunction
+      );
+
+      expect(next).toHaveBeenCalled();
+    });
+  });
+});
+
+describe("Given an updateOneSession controller", () => {
+  const session = getRandomSession();
+  describe("When it receives an id with a valid id session", () => {
+    test("Then it should invoke its status method with 201 and the session updated body ", async () => {
+      const params = {
+        id: session._id,
+      };
+
+      req.params = params;
+      req.userId = session.owner.toString();
+      const expectedStatus = 201;
+
+      Session.findById = jest
+        .fn()
+        .mockReturnValue({ exec: jest.fn().mockReturnValue(session) });
+
+      Session.findByIdAndUpdate = jest
+        .fn()
+        .mockReturnValue({ exec: jest.fn().mockReturnValue(session) });
+
+      await updateOneSession(
+        req as CustomRequest,
+        res as Response,
+        next as NextFunction
+      );
+
+      expect(res.status).toHaveBeenCalledWith(expectedStatus);
+      expect(res.json).toHaveBeenCalledWith({ session: { ...session } });
+    });
+  });
+
+  describe("When it receives a request with an invalid id session", () => {
+    test("Then it should call next with an error", async () => {
+      const params = {
+        id: session._id,
+      };
+
+      req.params = params;
+      req.userId = "";
+      const error = new CustomError(
+        "Invalid id's",
+        "Error updating session",
+        500
+      );
+
+      Session.findByIdAndUpdate = jest
+        .fn()
+        .mockReturnValue({ exec: jest.fn().mockReturnValue(session) });
+
+      await updateOneSession(
+        req as CustomRequest,
+        res as Response,
+        next as NextFunction
+      );
+
+      expect(next).toHaveBeenCalledWith(error);
+    });
+  });
+
+  describe("When it receives a request with an inexsistent id session", () => {
+    test("Then it should call next", async () => {
+      const params = {
+        id: "",
+      };
+
+      req.params = params;
+
+      Session.findById = jest
+        .fn()
+        .mockReturnValue({ exec: jest.fn().mockReturnValue(null) });
+
+      await updateOneSession(
         req as CustomRequest,
         res as Response,
         next as NextFunction

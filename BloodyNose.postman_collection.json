@@ -83,7 +83,7 @@
       "response": []
     },
     {
-      "name": "Create a Session",
+      "name": "Create a session",
       "request": {
         "method": "POST",
         "header": [],
@@ -159,6 +159,74 @@
           "raw": "{{LocalOrigin}}/sessions/delete/6388fd9942c07391ec74996d",
           "host": ["{{LocalOrigin}}"],
           "path": ["sessions", "delete", "6388fd9942c07391ec74996d"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update a session",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "title",
+              "value": "Helloaaaaa",
+              "type": "text"
+            },
+            {
+              "key": "picture",
+              "type": "file",
+              "src": "/C:/Users/Xavi/Downloads/28510-1-fight-free-download.png"
+            },
+            {
+              "key": "location",
+              "value": "sarda ya veras",
+              "type": "text"
+            },
+            {
+              "key": "participants",
+              "value": "5",
+              "type": "text"
+            },
+            {
+              "key": "material",
+              "value": "A lot jeje",
+              "type": "text"
+            },
+            {
+              "key": "level",
+              "value": "amateur",
+              "type": "text"
+            },
+            {
+              "key": "content",
+              "value": "mucho texto quizas",
+              "type": "text"
+            },
+            {
+              "key": "style",
+              "value": "karate",
+              "type": "text"
+            },
+            {
+              "key": "length",
+              "value": "61",
+              "type": "text"
+            },
+            {
+              "key": "date",
+              "value": "20-09-2022",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{LocalOrigin}}/sessions/edit/6389e98d185d458a46693438",
+          "host": ["{{LocalOrigin}}"],
+          "path": ["sessions", "edit", "6389e98d185d458a46693438"]
         }
       },
       "response": []

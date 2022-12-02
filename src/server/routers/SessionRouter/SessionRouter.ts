@@ -9,6 +9,7 @@ import {
   deleteOneSession,
   getAllSessions,
   getOneSession,
+  updateOneSession,
 } from "../../controllers/sessionControllers/sessionControllers.js";
 import auth from "../../middlewares/auth/auth.js";
 import imageBackup from "../../middlewares/images/imageBackup/imageBackup.js";
@@ -17,7 +18,7 @@ import sessionSchema from "../../../schemas/sessionSchema.js";
 import imageRename from "../../middlewares/images/imageRename/imageRename.js";
 import { environment } from "../../../loadEnvironment.js";
 
-const { list, session, createSession, deleteSession } = routes;
+const { list, session, createSession, deleteSession, editSession } = routes;
 const { uploadPath } = environment;
 
 const sessionRouter = express.Router();
@@ -28,7 +29,9 @@ const upload = multer({
 });
 
 sessionRouter.get(list, auth, getAllSessions);
+
 sessionRouter.get(session, auth, getOneSession);
+
 sessionRouter.post(
   createSession,
   auth,
@@ -41,5 +44,16 @@ sessionRouter.post(
 );
 
 sessionRouter.delete(deleteSession, auth, deleteOneSession);
+
+sessionRouter.patch(
+  editSession,
+  auth,
+  upload.single("picture"),
+  validate(sessionSchema, {}, { abortEarly: false }),
+  imageRename,
+  imageResize,
+  imageBackup,
+  updateOneSession
+);
 
 export default sessionRouter;

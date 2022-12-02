@@ -134,3 +134,48 @@ export const deleteOneSession = async (
     next(customError);
   }
 };
+
+export const updateOneSession = async (
+  req: CustomRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  const { id } = req.params;
+  const userIdtoCheck = req.userId;
+
+  const receivedSession = req.body as SessionStructure;
+
+  try {
+    const session = await Session.findById(id).exec();
+    if (session.owner.toString() !== userIdtoCheck) {
+      const customError = new CustomError(
+        "Invalid id's",
+        "Error updating session",
+        500
+      );
+      next(customError);
+      return;
+    }
+
+    const updatedSession = await Session.findByIdAndUpdate(
+      id,
+      { ...receivedSession, owner: userIdtoCheck },
+      {
+        returnDocument: "after",
+      }
+    ).exec();
+
+    res.status(201).json({
+      session: {
+        ...updatedSession,
+      },
+    });
+  } catch (error: unknown) {
+    const customError = new CustomError(
+      (error as Error).message,
+      "Error updating session",
+      500
+    );
+    next(customError);
+  }
+};
