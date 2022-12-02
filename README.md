@@ -57,6 +57,7 @@ The command _npm run start:dev_ starts the server in watch mode.
 - (GET) /sessions/session/:id -> Retrieves a session when te request contains a valid token. Body -> Its body must return a session.
 - (POST) /sessions/add -> Allows the user to create a new session. Body -> Its body must return an object with a valid session.
 - (DELETE) /sessions/delete -> Allows the user to delete a session. Body -> Its body must return an object with a delete confirmation message.
+- (PATCH) /sessions/edit/:id -> Allows the user to edit a session. Body -> Its body must return an object with the edited session.
 
 ## Project Status
 
