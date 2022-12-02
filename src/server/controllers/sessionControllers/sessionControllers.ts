@@ -1,15 +1,12 @@
 import type { NextFunction, Response } from "express";
-import fs from "fs/promises";
 import CustomError from "../../../CustomError/CustomError.js";
 import type { SessionStructure } from "../../../database/models/Session.js";
 import type { CustomRequest } from "./types";
 import errorsMessageSet from "../../../CustomError/errorsMessageSet.js";
 import { Session } from "../../../database/models/Session.js";
-import { environment } from "../../../loadEnvironment.js";
 
 const { noAvailableSessions, cantRetrieveSessions, code404, sessionNotFound } =
   errorsMessageSet;
-const { uploadPath } = environment;
 
 export const getAllSessions = async (
   req: CustomRequest,
@@ -126,7 +123,6 @@ export const deleteOneSession = async (
       return;
     }
 
-    await fs.unlink(`${uploadPath}/${session.picture}`);
     await Session.findByIdAndDelete(id).exec();
     res.status(200).json({ message: "Session has been deleted" });
   } catch (error: unknown) {

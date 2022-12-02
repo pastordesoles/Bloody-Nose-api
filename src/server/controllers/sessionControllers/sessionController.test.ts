@@ -1,5 +1,4 @@
 import type { NextFunction, Response } from "express";
-import fs from "fs/promises";
 import CustomError from "../../../CustomError/CustomError";
 import { Session } from "../../../database/models/Session";
 import {
@@ -246,8 +245,6 @@ describe("Given a deleteOneSession controller", () => {
       Session.findById = jest
         .fn()
         .mockReturnValue({ exec: jest.fn().mockReturnValue(session) });
-
-      fs.unlink = jest.fn();
 
       Session.findByIdAndDelete = jest
         .fn()
