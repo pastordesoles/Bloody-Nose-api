@@ -18,7 +18,7 @@ export const getAllSessions = async (
   const pageOptions = {
     // eslint-disable-next-line no-implicit-coercion
     page: +req.query.page || 0,
-    limit: 5,
+    limit: 6,
   };
 
   const countSessions: number = await Session.countDocuments().exec();
