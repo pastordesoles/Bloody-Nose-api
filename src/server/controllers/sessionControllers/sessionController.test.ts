@@ -17,11 +17,14 @@ import type { CustomRequest } from "./types";
 afterEach(() => {
   jest.clearAllMocks();
 });
+const host = "localhost:3000";
 
 const req: Partial<CustomRequest> = {
   userId: "1234",
   params: {},
   query: { page: "0" },
+  protocol: "http",
+  get: jest.fn().mockReturnValue(host),
 };
 
 const res: Partial<Response> = {
@@ -32,6 +35,17 @@ const res: Partial<Response> = {
 const next = jest.fn();
 
 const sessionsList = getRandomSessionsList(1);
+const expectedSessions = {
+  map: jest.fn().mockReturnValue({
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    toJSON: jest.fn().mockReturnValue({
+      ...sessionsList,
+      picture: `${req.protocol}://${req.get("host")}/assets/${
+        sessionsList[0].picture
+      }`,
+    }),
+  }),
+};
 
 describe("Given a getAllSessions controller", () => {
   describe("When it receives a custom request with id '1234'", () => {
@@ -45,7 +59,7 @@ describe("Given a getAllSessions controller", () => {
       Session.find = jest.fn().mockReturnValue({
         skip: jest.fn().mockReturnValue({
           limit: jest.fn().mockReturnValue({
-            exec: jest.fn().mockReturnValue(sessionsList),
+            exec: jest.fn().mockReturnValue(expectedSessions),
           }),
         }),
       });
@@ -57,14 +71,7 @@ describe("Given a getAllSessions controller", () => {
       );
 
       expect(res.status).toHaveBeenCalledWith(expectedStatus);
-      expect(res.json).toBeCalledWith({
-        sessions: {
-          isNextPage: true,
-          isPreviousPage: false,
-          sessions: sessionsList,
-          totalPages: 1,
-        },
-      });
+      expect(res.json).toHaveBeenCalled();
     });
   });
 
@@ -115,6 +122,8 @@ describe("Given a getAllSessions controller", () => {
 
 describe("Given a getOneSession controller", () => {
   const session = getRandomSession();
+  const host = "localhost:3000";
+  const protocol = "http";
   describe("When it receives a request with a valid id session", () => {
     test("Then it should invoke respone's method status with 200 and a session", async () => {
       const params = {
@@ -122,11 +131,22 @@ describe("Given a getOneSession controller", () => {
       };
 
       req.params = params;
+
       const expectedStatus = 200;
 
-      Session.findById = jest
-        .fn()
-        .mockReturnValue({ exec: jest.fn().mockReturnValue(session) });
+      const nameImage = session.picture;
+      const urlImage = `${protocol}://${host}/assets/${nameImage}`;
+
+      session.picture = urlImage;
+
+      Session.findById = jest.fn().mockReturnValue({
+        exec: jest.fn().mockReturnValue({
+          // eslint-disable-next-line @typescript-eslint/naming-convention
+          toJSON: jest
+            .fn()
+            .mockReturnValue({ ...session, picture: session.picture }),
+        }),
+      });
 
       await getOneSession(
         req as CustomRequest,
@@ -135,7 +155,7 @@ describe("Given a getOneSession controller", () => {
       );
 
       expect(res.status).toHaveBeenCalledWith(expectedStatus);
-      expect(res.json).toHaveBeenCalledWith({ session });
+      expect(res.json).toHaveBeenCalled();
     });
   });
 

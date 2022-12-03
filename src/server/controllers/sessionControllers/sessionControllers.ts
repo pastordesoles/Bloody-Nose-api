@@ -13,7 +13,7 @@ export const getAllSessions = async (
   res: Response,
   next: NextFunction
 ) => {
-  let sessions;
+  let sessionsToAdd;
 
   const pageOptions = {
     // eslint-disable-next-line no-implicit-coercion
@@ -30,12 +30,12 @@ export const getAllSessions = async (
   };
 
   try {
-    sessions = await Session.find()
+    sessionsToAdd = await Session.find()
       .skip(pageOptions.page * pageOptions.limit)
       .limit(pageOptions.limit)
       .exec();
 
-    if (sessions.length === 0) {
+    if (sessionsToAdd.length === 0) {
       next(noAvailableSessions);
       return;
     }
@@ -48,6 +48,13 @@ export const getAllSessions = async (
     next(mongooseError);
     return;
   }
+
+  const sessions = sessionsToAdd.map((session) => ({
+    ...session.toJSON(),
+    picture: session.picture
+      ? `${req.protocol}://${req.get("host")}/assets/${session.picture}`
+      : "",
+  }));
 
   res.status(200).json({ sessions: { ...checkPages, sessions } });
 };
@@ -66,7 +73,14 @@ export const getOneSession = async (
       return;
     }
 
-    res.status(200).json({ session });
+    res.status(200).json({
+      session: {
+        ...session.toJSON(),
+        picture: session.picture
+          ? `${req.protocol}://${req.get("host")}/assets/${session.picture}`
+          : "",
+      },
+    });
   } catch (error: unknown) {
     const customError = new CustomError(
       (error as Error).message,
