@@ -18,7 +18,6 @@ export const getAllSessions = async (
   let sessionsToAdd;
 
   const pageOptions = {
-    // eslint-disable-next-line no-implicit-coercion
     page: +req.query.page || 0,
     limit: 6,
   };
@@ -202,11 +201,10 @@ export const getSessionsByStyle = async (
   let sessionsToAdd;
 
   const pageOptions = {
-    // eslint-disable-next-line no-implicit-coercion
     page: +req.query.page || 0,
     limit: 6,
   };
-
+  debugger;
   const { style: styleParam } = req.params;
 
   const countSessions: number = await Session.countDocuments().exec();
