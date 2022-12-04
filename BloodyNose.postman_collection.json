@@ -230,6 +230,25 @@
         }
       },
       "response": []
+    },
+    {
+      "name": "Get sessions by style",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{LocalOrigin}}/sessions/style/boxing?page=0",
+          "host": ["{{LocalOrigin}}"],
+          "path": ["sessions", "style", "boxing"],
+          "query": [
+            {
+              "key": "page",
+              "value": "0"
+            }
+          ]
+        }
+      },
+      "response": []
     }
   ],
   "auth": {
@@ -237,7 +256,7 @@
     "bearer": [
       {
         "key": "token",
-        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzN2YzNzMwZDE5Y2U3YTliMDdhODc3ZSIsInVzZXJuYW1lIjoieGF2aSIsImlhdCI6MTY2OTkyMDQzOCwiZXhwIjoxNjcwMDkzMjM4fQ.8dCeLOft9sleui2MWsfUETDvJSWW32UE1FFNebW_RmE",
+        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzN2YzNzMwZDE5Y2U3YTliMDdhODc3ZSIsInVzZXJuYW1lIjoieGF2aSIsImlhdCI6MTY3MDE2NTQ4OCwiZXhwIjoxNjcwMzM4Mjg4fQ.CGy2Ho-L0-OxwmBwqqq00_2XpYEcrq_QfdamAbH1hCo",
         "type": "string"
       }
     ]
