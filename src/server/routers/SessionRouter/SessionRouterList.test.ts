@@ -5,7 +5,10 @@ import mongoose from "mongoose";
 import connectDb from "../../../database/connectDb";
 import { Session } from "../../../database/models/Session";
 import routes from "../routes";
-import { getRandomSessionsList } from "../../../factories/sessionsFactory";
+import {
+  getRandomSession,
+  getRandomSessionsList,
+} from "../../../factories/sessionsFactory";
 import app from "../../app";
 import User from "../../../database/models/User";
 import { getRandomUser } from "../../../factories/usersFactory";
@@ -141,6 +144,41 @@ describe("Given a GET /sessions/session/:id endpoint", () => {
       const response = await request(app)
         .get(`${oneSession}${session._id}`)
         .set("Authorization", `Bearer ${requestUserToken}`)
+        .expect(expectedStatus);
+
+      expect(response.body).toHaveProperty("error");
+    });
+  });
+});
+
+describe("Given a DELETE /sessions/delete/:id endpoint", () => {
+  describe("When it receives a request from a logged user and a valid session id", () => {
+    test("Then it should call the response method status with a 200", async () => {
+      const expectedStatus = 200;
+
+      const session = getRandomSession();
+
+      const sessionWithOwner = { ...session, owner: user._id };
+
+      const newSession = await Session.create(sessionWithOwner);
+
+      await request(app)
+        .delete(`/sessions/delete/${newSession.id as string}`)
+        .set("Authorization", `Bearer ${requestUserToken}`)
+        .set("Content-Type", "application/json")
+        .expect(expectedStatus);
+    });
+  });
+
+  describe("When it receives a request from a logged user with an invalid session id '123456'", () => {
+    test("Then it should call the response method status with a 500 and an error", async () => {
+      const expectedStatus = 500;
+      const sessionId = "123456";
+
+      const response = await request(app)
+        .delete(`/sessions/delete/${sessionId}`)
+        .set("Authorization", `Bearer ${requestUserToken}`)
+        .set("Content-Type", "application/json")
         .expect(expectedStatus);
 
       expect(response.body).toHaveProperty("error");
