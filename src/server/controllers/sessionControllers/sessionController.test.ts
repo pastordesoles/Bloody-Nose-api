@@ -492,30 +492,6 @@ describe("Given a getSessionsByStyle controller", () => {
     });
   });
 
-  describe("When it receives a custom request with id '1234' and there are no available sessions", () => {
-    test("Then it should call its method next with a sessions error", async () => {
-      Session.countDocuments = jest.fn().mockReturnValue({
-        exec: jest.fn().mockReturnValue(0),
-      });
-
-      Session.find = jest.fn().mockReturnValue({
-        skip: jest.fn().mockReturnValue({
-          limit: jest.fn().mockReturnValue({
-            exec: jest.fn().mockReturnValue([]),
-          }),
-        }),
-      });
-
-      await getSessionsByStyle(
-        req as CustomRequest,
-        res as Response,
-        next as NextFunction
-      );
-
-      expect(next).toHaveBeenCalled();
-    });
-  });
-
   describe("When it receives a custom***** with id '1234' and there are no available sessions", () => {
     test("Then it should call its method next with a sessions error", async () => {
       Session.countDocuments = jest.fn().mockReturnValue({

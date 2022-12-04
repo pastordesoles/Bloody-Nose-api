@@ -237,10 +237,12 @@ export const getSessionsByStyle = async (
       .limit(pageOptions.limit)
       .exec();
 
-    if (sessionsToAdd.length === 0) {
-      next(noAvailableSessions);
-      return;
-    }
+    const sessions = sessionsToAdd.map((session) => ({
+      ...session.toJSON(),
+      picture: `${req.protocol}://${req.get("host")}/assets/${session.picture}`,
+    }));
+
+    res.status(200).json({ sessions: { ...checkPages, sessions } });
   } catch (error: unknown) {
     const mongooseError = new CustomError(
       (error as Error).message,
@@ -248,13 +250,5 @@ export const getSessionsByStyle = async (
       code404
     );
     next(mongooseError);
-    return;
   }
-
-  const sessions = sessionsToAdd.map((session) => ({
-    ...session.toJSON(),
-    picture: `${req.protocol}://${req.get("host")}/assets/${session.picture}`,
-  }));
-
-  res.status(200).json({ sessions: { ...checkPages, sessions } });
 };
