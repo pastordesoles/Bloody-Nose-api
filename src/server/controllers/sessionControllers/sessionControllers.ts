@@ -51,9 +51,7 @@ export const getAllSessions = async (
 
   const sessions = sessionsToAdd.map((session) => ({
     ...session.toJSON(),
-    picture: session.picture
-      ? `${req.protocol}://${req.get("host")}/assets/${session.picture}`
-      : "",
+    picture: `${req.protocol}://${req.get("host")}/assets/${session.picture}`,
   }));
 
   res.status(200).json({ sessions: { ...checkPages, sessions } });

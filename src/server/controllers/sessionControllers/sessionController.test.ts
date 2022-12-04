@@ -36,21 +36,21 @@ const next = jest.fn();
 
 const sessionsList = getRandomSessionsList(1);
 const expectedSessions = {
-  map: jest.fn().mockReturnValue({
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    toJSON: jest.fn().mockReturnValue({
-      ...sessionsList,
-      picture: `${req.protocol}://${req.get("host")}/assets/${
-        sessionsList[0].picture
-      }`,
-    }),
-  }),
+  map: jest.fn().mockReturnValue(sessionsList),
 };
 
 describe("Given a getAllSessions controller", () => {
   describe("When it receives a custom request with id '1234'", () => {
     test("Then it should invoke response's method status with 200 and a list of sessions", async () => {
       const expectedStatus = 200;
+      const expectedResponse = {
+        sessions: {
+          isNextPage: true,
+          isPreviousPage: false,
+          sessions: sessionsList,
+          totalPages: 1,
+        },
+      };
 
       Session.countDocuments = jest.fn().mockReturnValue({
         exec: jest.fn().mockReturnValue(6),
@@ -71,7 +71,7 @@ describe("Given a getAllSessions controller", () => {
       );
 
       expect(res.status).toHaveBeenCalledWith(expectedStatus);
-      expect(res.json).toHaveBeenCalled();
+      expect(res.json).toBeCalledWith(expectedResponse);
     });
   });
 
