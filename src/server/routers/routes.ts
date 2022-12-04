@@ -8,6 +8,7 @@ const routes = {
   createSession: "/add",
   deleteSession: "/delete/:id",
   editSession: "/edit/:id",
+  getByStyle: "/style/:style",
 };
 
 export default routes;

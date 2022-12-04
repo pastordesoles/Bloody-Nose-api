@@ -9,6 +9,7 @@ import {
   deleteOneSession,
   getAllSessions,
   getOneSession,
+  getSessionsByStyle,
   updateOneSession,
 } from "../../controllers/sessionControllers/sessionControllers.js";
 import auth from "../../middlewares/auth/auth.js";
@@ -18,7 +19,8 @@ import sessionSchema from "../../../schemas/sessionSchema.js";
 import imageRename from "../../middlewares/images/imageRename/imageRename.js";
 import { environment } from "../../../loadEnvironment.js";
 
-const { list, session, createSession, deleteSession, editSession } = routes;
+const { list, session, createSession, deleteSession, editSession, getByStyle } =
+  routes;
 const { uploadPath } = environment;
 
 const sessionRouter = express.Router();
@@ -29,6 +31,7 @@ const upload = multer({
 });
 
 sessionRouter.get(list, auth, getAllSessions);
+sessionRouter.get(getByStyle, auth, getSessionsByStyle);
 
 sessionRouter.get(session, auth, getOneSession);
 
