@@ -50,7 +50,7 @@ describe("Given a GET /sessions/list endpoint", () => {
       await Session.create(sessionsList);
 
       const response = await request(app)
-        .get(sessionEndpoint)
+        .get(`${sessionEndpoint}?page=0&style=all`)
         .set("Authorization", `Bearer ${requestUserToken}`)
         .expect(expectedStatus);
 
@@ -65,6 +65,7 @@ describe("Given a GET /sessions/list endpoint", () => {
 
       const response = await request(app)
         .get(sessionEndpoint)
+        .set("style", "all")
         .set("Authorization", "Bearer ")
         .expect(expectedStatus);
 
@@ -77,7 +78,7 @@ describe("Given a GET /sessions/list endpoint", () => {
       const expectedStatus = 404;
 
       const response = await request(app)
-        .get(sessionEndpoint)
+        .get(`${sessionEndpoint}?page=0&style=all`)
         .set("Authorization", `Bearer ${requestUserToken}`)
         .expect(expectedStatus);
 

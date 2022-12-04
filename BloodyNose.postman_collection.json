@@ -56,13 +56,17 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "{{LocalOrigin}}/sessions/list?page=2",
+          "raw": "{{LocalOrigin}}/sessions/list?page=0&style=all",
           "host": ["{{LocalOrigin}}"],
           "path": ["sessions", "list"],
           "query": [
             {
               "key": "page",
-              "value": "2"
+              "value": "0"
+            },
+            {
+              "key": "style",
+              "value": "all"
             }
           ]
         }
@@ -227,25 +231,6 @@
           "raw": "{{LocalOrigin}}/sessions/edit/6389e98d185d458a46693438",
           "host": ["{{LocalOrigin}}"],
           "path": ["sessions", "edit", "6389e98d185d458a46693438"]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Get sessions by style",
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "{{LocalOrigin}}/sessions/style/boxing?page=0",
-          "host": ["{{LocalOrigin}}"],
-          "path": ["sessions", "style", "boxing"],
-          "query": [
-            {
-              "key": "page",
-              "value": "0"
-            }
-          ]
         }
       },
       "response": []

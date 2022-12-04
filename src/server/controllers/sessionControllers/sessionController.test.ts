@@ -10,7 +10,6 @@ import {
   deleteOneSession,
   getAllSessions,
   getOneSession,
-  getSessionsByStyle,
   updateOneSession,
 } from "./sessionControllers";
 import type { CustomRequest } from "./types";
@@ -22,8 +21,7 @@ const host = "localhost:3000";
 
 const req: Partial<CustomRequest> = {
   userId: "1234",
-  params: {},
-  query: { page: "0" },
+  query: { page: "0", style: "karate" },
   protocol: "http",
   get: jest.fn().mockReturnValue(host),
 };
@@ -41,7 +39,7 @@ const expectedSessions = {
 };
 
 describe("Given a getAllSessions controller", () => {
-  describe("When it receives a custom request with id '1234'", () => {
+  describe("When it receives a custom request with id '1234' and style as 'karate'", () => {
     test("Then it should invoke response's method status with 200 and a list of sessions", async () => {
       const expectedStatus = 200;
       const expectedResponse = {
@@ -73,6 +71,75 @@ describe("Given a getAllSessions controller", () => {
 
       expect(res.status).toHaveBeenCalledWith(expectedStatus);
       expect(res.json).toBeCalledWith(expectedResponse);
+    });
+  });
+
+  describe("When it receives a custom request with id '1234' and style as 'all'", () => {
+    test("Then it should invoke response's method status with 200 and a list of sessions", async () => {
+      const request = {
+        ...req,
+        query: { page: "0", style: "all" },
+      };
+
+      const expectedStatus = 200;
+      const expectedResponse = {
+        sessions: {
+          isNextPage: true,
+          isPreviousPage: false,
+          sessions: sessionsList,
+          totalPages: 1,
+        },
+      };
+
+      Session.countDocuments = jest.fn().mockReturnValue({
+        exec: jest.fn().mockReturnValue(6),
+      });
+
+      Session.find = jest.fn().mockReturnValue({
+        skip: jest.fn().mockReturnValue({
+          limit: jest.fn().mockReturnValue({
+            exec: jest.fn().mockReturnValue(expectedSessions),
+          }),
+        }),
+      });
+
+      await getAllSessions(
+        request as CustomRequest,
+        res as Response,
+        next as NextFunction
+      );
+
+      expect(res.status).toHaveBeenCalledWith(expectedStatus);
+      expect(res.json).toBeCalledWith(expectedResponse);
+    });
+  });
+
+  describe("When it receives a custom request with id '1234' and style as 'all'", () => {
+    test("Then it should invoke response's method status with 200 and a list of sessions", async () => {
+      const request = {
+        ...req,
+        query: { page: "0", style: "aafaa" },
+      };
+
+      Session.countDocuments = jest.fn().mockReturnValue({
+        exec: jest.fn().mockReturnValue(6),
+      });
+
+      Session.find = jest.fn().mockReturnValue({
+        skip: jest.fn().mockReturnValue({
+          limit: jest.fn().mockReturnValue({
+            exec: jest.fn().mockReturnValue(expectedSessions),
+          }),
+        }),
+      });
+
+      await getAllSessions(
+        request as CustomRequest,
+        null,
+        next as NextFunction
+      );
+
+      expect(next).toHaveBeenCalled();
     });
   });
 
@@ -410,130 +477,6 @@ describe("Given an updateOneSession controller", () => {
       await updateOneSession(
         req as CustomRequest,
         res as Response,
-        next as NextFunction
-      );
-
-      expect(next).toHaveBeenCalled();
-    });
-  });
-});
-
-describe("Given a getSessionsByStyle controller", () => {
-  const req: Partial<CustomRequest> = {
-    userId: "1234",
-    params: { style: "karate" },
-    query: { page: "0" },
-    protocol: "http",
-    get: jest.fn().mockReturnValue(host),
-  };
-
-  const next = jest.fn();
-  const sessionsList = getRandomSessionsList(1);
-  const expectedSessions = {
-    map: jest.fn().mockReturnValue(sessionsList),
-  };
-
-  describe("When it receives a custom request with id '1234' and 'karate' as style", () => {
-    test("Then it should invoke response's method status with 200 and a list of sessions", async () => {
-      const expectedStatus = 200;
-      const expectedResponse = {
-        sessions: {
-          isNextPage: true,
-          isPreviousPage: false,
-          sessions: sessionsList,
-          totalPages: 1,
-        },
-      };
-
-      Session.countDocuments = jest.fn().mockReturnValue({
-        exec: jest.fn().mockReturnValue(6),
-      });
-
-      Session.count = jest.fn().mockReturnValue({
-        exec: jest.fn().mockReturnValue(expectedSessions),
-      });
-
-      Session.find = jest.fn().mockReturnValue({
-        skip: jest.fn().mockReturnValue({
-          limit: jest.fn().mockReturnValue({
-            exec: jest.fn().mockReturnValue(expectedSessions),
-          }),
-        }),
-      });
-
-      await getSessionsByStyle(
-        req as CustomRequest,
-        res as Response,
-        next as NextFunction
-      );
-
-      expect(res.status).toHaveBeenCalledWith(expectedStatus);
-      expect(res.json).toBeCalledWith(expectedResponse);
-    });
-  });
-
-  describe("When it receives a custom request with id '1234' and 'karate' as style and there is an error getting the list", () => {
-    test("Then it should call its method next with a sessions error", async () => {
-      Session.find = jest.fn().mockReturnValue({
-        skip: jest.fn().mockReturnValue({
-          limit: jest.fn().mockReturnValue({
-            exec: jest.fn().mockReturnValue(null),
-          }),
-        }),
-      });
-
-      await getSessionsByStyle(
-        req as CustomRequest,
-        res as Response,
-        next as NextFunction
-      );
-
-      expect(next).toHaveBeenCalled();
-    });
-  });
-
-  describe("When it receives a custom request with id '1234' and there are no available sessions", () => {
-    test("Then it should call its method next with a sessions error", async () => {
-      Session.countDocuments = jest.fn().mockReturnValue({
-        exec: jest.fn().mockReturnValue(0),
-      });
-
-      Session.count = jest.fn().mockReturnValue({
-        exec: jest.fn().mockReturnValue(0),
-      });
-
-      Session.find = jest.fn().mockReturnValue({
-        skip: jest.fn().mockReturnValue({
-          limit: jest.fn().mockReturnValue({
-            exec: jest.fn().mockReturnValue([]),
-          }),
-        }),
-      });
-
-      await getSessionsByStyle(
-        req as CustomRequest,
-        res as Response,
-        next as NextFunction
-      );
-
-      expect(next).toHaveBeenCalled();
-    });
-  });
-
-  describe("When it receives a custom request with id '1234' and 'asdafas' as an invalid style", () => {
-    test("Then it should call its method next with a sessions error", async () => {
-      const request = {
-        ...req,
-        params: { style: "asdafas" },
-      };
-
-      Session.countDocuments = jest.fn().mockReturnValue({
-        exec: jest.fn().mockReturnValue(6),
-      });
-
-      await getSessionsByStyle(
-        request as CustomRequest,
-        null,
         next as NextFunction
       );
 
