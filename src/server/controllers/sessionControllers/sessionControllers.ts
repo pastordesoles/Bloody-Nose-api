@@ -204,7 +204,7 @@ export const getSessionsByStyle = async (
     page: +req.query.page || 0,
     limit: 6,
   };
-  debugger;
+
   const { style: styleParam } = req.params;
 
   const countSessions: number = await Session.countDocuments().exec();
