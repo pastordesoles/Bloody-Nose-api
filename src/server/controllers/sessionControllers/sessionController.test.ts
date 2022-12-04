@@ -433,7 +433,7 @@ describe("Given a getSessionsByStyle controller", () => {
     map: jest.fn().mockReturnValue(sessionsList),
   };
 
-  describe("When it receives a custom request with id '1234'", () => {
+  describe("When it receives a custom request with id '1234' and 'karate' as style", () => {
     test("Then it should invoke response's method status with 200 and a list of sessions", async () => {
       const expectedStatus = 200;
       const expectedResponse = {
@@ -472,7 +472,7 @@ describe("Given a getSessionsByStyle controller", () => {
     });
   });
 
-  describe("When it receives a custom request with id '1234' and there is an error getting the list", () => {
+  describe("When it receives a custom request with id '1234' and 'karate' as style and there is an error getting the list", () => {
     test("Then it should call its method next with a sessions error", async () => {
       Session.find = jest.fn().mockReturnValue({
         skip: jest.fn().mockReturnValue({
@@ -492,7 +492,7 @@ describe("Given a getSessionsByStyle controller", () => {
     });
   });
 
-  describe("When it receives a custom***** with id '1234' and there are no available sessions", () => {
+  describe("When it receives a custom request with id '1234' and there are no available sessions", () => {
     test("Then it should call its method next with a sessions error", async () => {
       Session.countDocuments = jest.fn().mockReturnValue({
         exec: jest.fn().mockReturnValue(0),
@@ -520,7 +520,7 @@ describe("Given a getSessionsByStyle controller", () => {
     });
   });
 
-  describe("When iaaaaaaaaaaaAAAom request with id '1234' and there are no available sessions", () => {
+  describe("When it receives a custom request with id '1234' and 'asdafas' as an invalid style", () => {
     test("Then it should call its method next with a sessions error", async () => {
       const request = {
         ...req,
