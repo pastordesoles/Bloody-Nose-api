@@ -35,7 +35,6 @@ describe("Given a getTweetImage middleware", () => {
       await getSessionImage(req as Request, res as Response, next);
 
       expect(res.redirect).toBeCalledWith(expectedPublicUrl);
-      expect(next).toBeCalled();
     });
 
     describe("When it receives a request with a path that doesn't start with /assets", () => {
