@@ -76,4 +76,22 @@ describe("Given a imagesRename middleware", () => {
       expect(next).toHaveBeenCalledWith(error);
     });
   });
+
+  describe("When it receives a CustomRequest without an image file", () => {
+    test("Then it should call next with the thrown error", async () => {
+      const request: Partial<
+        CustomRequest<
+          Record<string, unknown>,
+          Record<string, unknown>,
+          SessionStructure
+        >
+      > = {
+        body: newSession,
+      };
+
+      await imageRename(request as CustomRequest, null, next);
+
+      expect(next).toHaveBeenCalled();
+    });
+  });
 });

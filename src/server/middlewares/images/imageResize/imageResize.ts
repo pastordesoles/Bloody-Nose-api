@@ -12,6 +12,11 @@ const imageResize = async (
   res: Response,
   next: NextFunction
 ) => {
+  if (!req.file) {
+    next();
+    return;
+  }
+
   const { filename } = req.file;
 
   try {

@@ -64,4 +64,16 @@ describe("Given the imageResize middleware", () => {
       expect(next).toBeCalled();
     });
   });
+
+  describe("When it's instantiated withouth an image", () => {
+    test("Then it should call next", async () => {
+      const request: Partial<CustomRequest> = {
+        body: newSession,
+      };
+
+      await imageResize(request as CustomRequest, null, next);
+
+      expect(next).toBeCalled();
+    });
+  });
 });

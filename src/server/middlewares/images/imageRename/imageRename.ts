@@ -16,6 +16,11 @@ const imageRename = async (
   res: Response,
   next: NextFunction
 ) => {
+  if (!req.file) {
+    next();
+    return;
+  }
+
   const timeStamp = Date.now();
 
   const fileExtension = path.extname(req.file.originalname);
