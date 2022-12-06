@@ -17,8 +17,9 @@ const app = express();
 app.use(cors(corsOptions));
 app.use(morgan("dev"));
 app.use(express.json());
-app.use(`/${uploadPath}`, express.static(uploadPath), getSessionImage);
 app.disable("x-powered-by");
+app.enable("trust proxy");
+app.use(`/${uploadPath}`, express.static(uploadPath), getSessionImage);
 
 app.use(usersEndpoint, userRouter);
 app.use(sessionsEndpoint, sessionRouter);
