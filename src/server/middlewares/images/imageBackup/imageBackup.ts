@@ -32,7 +32,7 @@ const imageBackup = async (
     const mainImage = picture;
     const fileContent = await fs.readFile(path.join(uploadPath, mainImage));
 
-    await bucket.upload(mainImage, fileContent);
+    await bucket.upload(mainImage, fileContent, { cacheControl: "31536000" });
 
     const {
       data: { publicUrl },
