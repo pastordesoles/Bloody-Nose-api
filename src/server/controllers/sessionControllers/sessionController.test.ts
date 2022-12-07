@@ -114,8 +114,8 @@ describe("Given a getAllSessions controller", () => {
     });
   });
 
-  describe("When it receives a custom request with id '1234' and style as 'all'", () => {
-    test("Then it should invoke response's method status with 200 and a list of sessions", async () => {
+  describe("When it receives a custom request with id '1234' and style as 'aafaa'", () => {
+    test("Then it should call its method next", async () => {
       const request = {
         ...req,
         query: { page: "0", style: "aafaa" },
@@ -144,7 +144,7 @@ describe("Given a getAllSessions controller", () => {
   });
 
   describe("When it receives a custom request with id '1234' and there is an error getting the list", () => {
-    test("Then it should call its method next with a sessions error", async () => {
+    test("Then it should call its method next", async () => {
       Session.find = jest.fn().mockReturnValue({
         skip: jest.fn().mockReturnValue({
           limit: jest.fn().mockReturnValue({
@@ -164,7 +164,7 @@ describe("Given a getAllSessions controller", () => {
   });
 
   describe("When it receives a custom request with id '1234' and there are no available sessions", () => {
-    test("Then it should call its method next with a sessions error", async () => {
+    test("Then it should call its method next", async () => {
       Session.countDocuments = jest.fn().mockReturnValue({
         exec: jest.fn().mockReturnValue(0),
       });
