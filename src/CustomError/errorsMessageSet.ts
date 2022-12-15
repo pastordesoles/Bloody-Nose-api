@@ -43,10 +43,18 @@ const errorsMessageSet = {
     404
   ),
 
+  errorDeleting: new CustomError("Invalid id's", "Error deleting session", 500),
+  errorUpdating: new CustomError("Invalid id's", "Error updating session", 500),
+
+  errorRetrievingSession: "Error retrieving session",
+  errorDeletingAsessionText: "Error deleting session",
+  errorUpdatingAsessionText: "Error updating session",
+
   cantRetrieveSessions: "Can't retrieve available sessions",
   invalidToken: "Invalid token",
   code404: 404,
   code401: 401,
+  code500: 500,
 };
 
 export default errorsMessageSet;

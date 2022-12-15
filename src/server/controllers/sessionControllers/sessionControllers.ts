@@ -7,8 +7,18 @@ import errorsMessageSet from "../../../CustomError/errorsMessageSet.js";
 import { Session } from "../../../database/models/Session.js";
 import styles from "./styles.js";
 
-const { noAvailableSessions, cantRetrieveSessions, code404, sessionNotFound } =
-  errorsMessageSet;
+const {
+  noAvailableSessions,
+  cantRetrieveSessions,
+  code404,
+  sessionNotFound,
+  errorRetrievingSession,
+  code500,
+  errorDeleting,
+  errorDeletingAsessionText,
+  errorUpdating,
+  errorUpdatingAsessionText,
+} = errorsMessageSet;
 
 export const getAllSessions = async (
   req: CustomRequest,
@@ -98,8 +108,8 @@ export const getOneSession = async (
   } catch (error: unknown) {
     const customError = new CustomError(
       (error as Error).message,
-      "Error retrieving session",
-      500
+      errorRetrievingSession,
+      code500
     );
     next(customError);
   }
@@ -142,12 +152,7 @@ export const deleteOneSession = async (
     const session = await Session.findById(id).exec();
 
     if (session.owner.toString() !== userIdtoCheck) {
-      const customError = new CustomError(
-        "Invalid id's",
-        "Error deleting session",
-        500
-      );
-      next(customError);
+      next(errorDeleting);
       return;
     }
 
@@ -156,8 +161,8 @@ export const deleteOneSession = async (
   } catch (error: unknown) {
     const customError = new CustomError(
       (error as Error).message,
-      "Error deleting session",
-      500
+      errorDeletingAsessionText,
+      code500
     );
     next(customError);
   }
@@ -176,12 +181,7 @@ export const updateOneSession = async (
   try {
     const session = await Session.findById(id).exec();
     if (session.owner.toString() !== userIdtoCheck) {
-      const customError = new CustomError(
-        "Invalid id's",
-        "Error updating session",
-        500
-      );
-      next(customError);
+      next(errorUpdating);
       return;
     }
 
@@ -201,8 +201,8 @@ export const updateOneSession = async (
   } catch (error: unknown) {
     const customError = new CustomError(
       (error as Error).message,
-      "Error updating session",
-      500
+      errorUpdatingAsessionText,
+      code500
     );
     next(customError);
   }
