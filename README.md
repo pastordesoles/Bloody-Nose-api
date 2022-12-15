@@ -3,7 +3,7 @@
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=pastordesoles_Bloody-Nose-api&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=pastordesoles_Bloody-Nose-api) [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=pastordesoles_Bloody-Nose-api&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=pastordesoles_Bloody-Nose-api) [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=pastordesoles_Bloody-Nose-api&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=pastordesoles_Bloody-Nose-api) [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=pastordesoles_Bloody-Nose-api&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=pastordesoles_Bloody-Nose-api) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=pastordesoles_Bloody-Nose-api&metric=coverage)](https://sonarcloud.io/summary/new_code?id=pastordesoles_Bloody-Nose-api) [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=pastordesoles_Bloody-Nose-api&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=pastordesoles_Bloody-Nose-api)
 
 > API for the Bloody Nose app.
-> Live demo [_here_](https://xavier-sans-back-final-project-202209-bcn.onrender.com/).
+> Live demo [_here_](https://bloody-nose-api.onrender.com).
 
 ## Table of Contents
 
@@ -78,7 +78,7 @@ To do:
 
 ## Acknowledgements
 
-- Many thanks to everyone who supported me along the road that took me here. What a hell of a ride.
+- Many thanks to everyone who supported me along the road that took me here.
 
 ## Contact
 
