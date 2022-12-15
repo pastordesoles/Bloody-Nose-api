@@ -1,5 +1,8 @@
 # Bloody Nose API
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=isdi-coders-2022_Xavier-Sans_Back-Final-Project-202209-BCN&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=isdi-coders-2022_Xavier-Sans_Back-Final-Project-202209-BCN) [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=isdi-coders-2022_Xavier-Sans_Back-Final-Project-202209-BCN&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=isdi-coders-2022_Xavier-Sans_Back-Final-Project-202209-BCN) [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=isdi-coders-2022_Xavier-Sans_Back-Final-Project-202209-BCN&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=isdi-coders-2022_Xavier-Sans_Back-Final-Project-202209-BCN)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=isdi-coders-2022_Xavier-Sans_Back-Final-Project-202209-BCN&metric=coverage)](https://sonarcloud.io/summary/new_code?id=isdi-coders-2022_Xavier-Sans_Back-Final-Project-202209-BCN) [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=isdi-coders-2022_Xavier-Sans_Back-Final-Project-202209-BCN&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=isdi-coders-2022_Xavier-Sans_Back-Final-Project-202209-BCN) [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=isdi-coders-2022_Xavier-Sans_Back-Final-Project-202209-BCN&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=isdi-coders-2022_Xavier-Sans_Back-Final-Project-202209-BCN)
+
 > API for the Bloody Nose app.
 > Live demo [_here_](https://xavier-sans-back-final-project-202209-bcn.onrender.com/).
 
@@ -36,6 +39,9 @@ API rest that manages all user and sessions information for the Bloody Nose appl
 - Morgan
 - Multer
 - Nodemon
+- Sharp
+- Jest
+- Supertest
 
 ## Setup
 
@@ -65,9 +71,11 @@ Project is: _in progress_
 
 ## Room for Improvement
 
-Room for improvement:
-
 To do:
+
+- Add endpoint test for the POST and PATCH session endpoints.
+- Refine session schema to narrow the validation fields.
+- Create and endpoint to update user data.
 
 ## Acknowledgements
 
